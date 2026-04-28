@@ -1,0 +1,888 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mobil Gunluk Guvenlik Checklisti</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --ok: #0b7a45;
+      --warn: #b45309;
+      --bad: #b91c1c;
+      --primary: #0f4c81;
+      --border: #dbe3ee;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef3fb 0%, #f7f9fd 100%);
+    }
+
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 8px 20px rgba(15, 76, 129, 0.06);
+    }
+
+    h1 {
+      font-size: 1.2rem;
+      margin: 0 0 8px;
+      color: var(--primary);
+    }
+
+    h2 {
+      font-size: 1rem;
+      margin: 4px 0 10px;
+      color: #0f172a;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 0.9rem;
+      margin-top: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .grid-1 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.86rem;
+      color: #334155;
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      min-height: 44px;
+      font-size: 1rem;
+      padding: 10px;
+      background: #fff;
+    }
+
+    textarea {
+      min-height: 70px;
+      resize: vertical;
+    }
+
+    .item {
+      border: 1px dashed #c7d2e5;
+      border-radius: 12px;
+      padding: 10px;
+      margin-bottom: 10px;
+      background: #fbfdff;
+    }
+
+    .item.passive {
+      background: #f1f5f9;
+      border-style: solid;
+      opacity: 0.85;
+    }
+
+    .item-title {
+      font-size: 0.94rem;
+      font-weight: 600;
+      margin: 0 0 8px;
+    }
+
+    .task-row {
+      display: none;
+      margin-bottom: 8px;
+      font-size: 0.84rem;
+      color: #334155;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .task-row input[type="checkbox"] {
+      width: auto;
+      min-height: auto;
+      margin: 0;
+      transform: scale(1.1);
+    }
+
+    .passive-tag {
+      display: inline-block;
+      margin-left: 6px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #7c2d12;
+      background: #ffedd5;
+      border: 1px solid #fed7aa;
+      vertical-align: middle;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .status label {
+      margin: 0;
+      font-weight: 500;
+      font-size: 0.82rem;
+      text-align: center;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      padding: 7px 4px;
+      background: #fff;
+    }
+
+    .status input {
+      display: none;
+    }
+
+    .status input:checked + span {
+      display: inline-block;
+      width: 100%;
+      color: #fff;
+      border-radius: 7px;
+      padding: 6px 2px;
+    }
+
+    .ok input:checked + span { background: var(--ok); }
+    .warn input:checked + span { background: var(--warn); }
+    .bad input:checked + span { background: var(--bad); }
+
+    .btn-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+      border: 0;
+      font-weight: 600;
+    }
+
+    .btn-ghost {
+      background: #fff;
+      color: #0f4c81;
+      border: 1px solid #9fb7d7;
+      font-weight: 600;
+    }
+
+    .btn-send {
+      background: #ff6a00;
+      color: #ffffff;
+      border: 2px solid #c2410c;
+      font-weight: 800;
+      box-shadow: 0 8px 18px rgba(255, 106, 0, 0.35);
+    }
+
+    .btn-send-final {
+      margin-top: 10px;
+      width: 100%;
+      min-height: 48px;
+      font-size: 1rem;
+    }
+
+    .btn-send:focus,
+    .btn-send:hover {
+      background: #e85d00;
+      border-color: #9a3412;
+      outline: none;
+    }
+
+    .pill {
+      display: inline-block;
+      margin: 4px 6px 0 0;
+      padding: 5px 9px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      background: #e8f0fb;
+      color: #234a72;
+    }
+
+    .sticky {
+      position: sticky;
+      bottom: 8px;
+      z-index: 10;
+    }
+
+    .logo-wrap {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .logo-box {
+      width: 84px;
+      height: 84px;
+      border-radius: 12px;
+      border: 1px solid #cbd5e1;
+      background: #f8fbff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .logo-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: none;
+    }
+
+    .logo-placeholder {
+      font-size: 0.78rem;
+      color: #64748b;
+      text-align: center;
+      padding: 4px;
+    }
+
+    .logo-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .logo-file {
+      min-height: 40px;
+      padding: 8px;
+      font-size: 0.85rem;
+    }
+
+    .footer-note {
+      margin: 18px 0 10px;
+      font-size: 0.82rem;
+      color: #334155;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+    }
+
+    #lockBanner {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: #b91c1c;
+      color: #fff;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px 16px;
+      border-radius: 0 0 10px 10px;
+      margin-bottom: 10px;
+    }
+
+    #updateBanner {
+      display: none;
+      background: #0f4c81;
+      color: #fff;
+      text-align: center;
+      font-size: 0.88rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .share-sheet {
+      margin-top: 10px;
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      background: #f8fbff;
+      padding: 10px;
+      display: none;
+    }
+
+    .share-sheet h3 {
+      margin: 0 0 8px;
+      font-size: 0.92rem;
+      color: #0f172a;
+    }
+
+    .share-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .share-link {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: #0f4c81;
+      background: #fff;
+      border: 1px solid #9fb7d7;
+      border-radius: 10px;
+      min-height: 42px;
+      line-height: 42px;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      .grid { grid-template-columns: 1fr; }
+      .btn-row { grid-template-columns: 1fr; }
+      .share-actions { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="lockBanner" role="alert"></div>
+  <div id="updateBanner" role="status" onclick="location.reload(true)">
+    ↻ Güncelleme mevcut – yenilemek için tıklayın
+  </div>
+  <div class="wrap">
+    <div class="card">
+      <h2>Rol Secimi</h2>
+      <label for="rol">Formu dolduran rol</label>
+      <select id="rol">
+        <option>Isveren/Isveren Vekili</option>
+        <option>Calisan</option>
+        <option>Nobetci Ogretmen</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <h1>Mobil Gunluk Guvenlik Checklisti</h1>
+      <p class="sub">Isveren/isveren vekili, calisan veya nobetci ogretmen gun icinde isaretleyip kaydedebilir.</p>
+      <div class="logo-wrap">
+        <div class="logo-box">
+          <img id="logoPreview" alt="Okul logosu" />
+          <div id="logoPlaceholder" class="logo-placeholder">Okul logosu</div>
+        </div>
+        <div>
+          <label for="logoInput">Okul logosu ekle (istege bagli)</label>
+          <input id="logoInput" class="logo-file" type="file" accept="image/*" />
+          <div class="logo-actions">
+            <button class="btn-ghost" type="button" id="removeLogoBtn">Logoyu kaldir</button>
+            <button class="btn-ghost" type="button" id="useLogoBtn">Logoyu kullan</button>
+          </div>
+        </div>
+      </div>
+      <span class="pill">Telefon uyumlu</span>
+      <span class="pill">Cevrimdisi calisir</span>
+      <span class="pill">CSV disa aktarim</span>
+    </div>
+
+    <div class="card">
+      <h2>Genel Bilgiler</h2>
+      <div class="grid">
+        <div>
+          <label for="okul">Okul</label>
+          <input id="okul" placeholder="Okul adi" />
+        </div>
+        <div>
+          <label for="tarih">Tarih</label>
+          <input id="tarih" type="date" />
+        </div>
+        <div>
+          <label for="tur">Kontrol Turu</label>
+          <select id="tur">
+            <option>1. Tur (Ders Baslangici)</option>
+            <option>2. Tur (Ogle/Ikindi)</option>
+          </select>
+        </div>
+        <div>
+          <label for="ad">Ad Soyad</label>
+          <input id="ad" placeholder="Ad Soyad" />
+        </div>
+        <div>
+          <label for="saat">Saat</label>
+          <input id="saat" type="time" />
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="list-area"></div>
+
+    <div class="card sticky">
+      <div class="btn-row">
+        <button class="btn-primary" id="saveBtn">Kaydet</button>
+        <button class="btn-ghost" id="csvBtn">CSV indir</button>
+        <button class="btn-ghost" id="copyBtn">Ozeti kopyala</button>
+        <button class="btn-ghost" id="resetBtn">Sifirla</button>
+      </div>
+      <p class="sub" style="margin:10px 0 6px;">Veri girisi tamamlandiginda son adim:</p>
+      <button class="btn-send btn-send-final" id="sendBtn">Raporu gonder</button>
+      <div class="share-sheet" id="shareSheet">
+        <h3>Gonderim secenekleri</h3>
+        <div class="share-actions">
+          <a id="waLink" class="share-link" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <a id="mailLink" class="share-link" href="#">E-posta</a>
+          <a id="smsLink" class="share-link" href="#">SMS</a>
+          <button class="btn-ghost" type="button" id="copyShareBtn">Metni kopyala</button>
+        </div>
+      </div>
+      <p class="sub" id="msg" aria-live="polite"></p>
+    </div>
+
+    <p class="footer-note">ÇOCU LARIN EĞİTİM SÜREÇLERİNİN GÜVENLİĞİ KAPSAMINDA TEDBİR SEÇENEĞİ OLARAK İŞ GÜVENLİĞİ UZMANI MUZAFFER ÇINAR TARAFINDAN HAZIRLANMIŞTIR</p>
+  </div>
+
+  <script>
+    /* ── GitHub Uzak Kontrol ──────────────────────────────────────────
+       Bu iki sabiti kendi GitHub Pages adresinize göre güncelleyin.
+       Örnek: https://muzaffercinar.github.io/isg-checklist
+    ─────────────────────────────────────────────────────────────────── */
+    const APP_VERSION  = "1.0.0";
+    const REMOTE_BASE  = "https://muzaffercinar.github.io/isg-checklist";
+
+    async function remoteInit() {
+      const timeout = (ms) =>
+        new Promise((_, rej) => setTimeout(() => rej(new Error("timeout")), ms));
+
+      /* ── 1. Kill Switch: config.json ── */
+      try {
+        const res = await Promise.race([
+          fetch(`${REMOTE_BASE}/config.json?_=${Date.now()}`, { cache: "no-store" }),
+          timeout(4000)
+        ]);
+        if (res.ok) {
+          const cfg = await res.json();
+          if (cfg.active === false) {
+            lockApp(cfg.message || "Bu form yönetici tarafından geçici olarak devre dışı bırakıldı.");
+            return; // Versiyon kontrolüne gerek yok
+          }
+        }
+      } catch (_) { /* Çevrimdışı veya ağ hatası → izin ver */ }
+
+      /* ── 2. Versiyon Kontrolü: version.json ── */
+      try {
+        const res = await Promise.race([
+          fetch(`${REMOTE_BASE}/version.json?_=${Date.now()}`, { cache: "no-store" }),
+          timeout(4000)
+        ]);
+        if (res.ok) {
+          const { version } = await res.json();
+          if (version && version !== APP_VERSION) {
+            const banner = document.getElementById("updateBanner");
+            banner.textContent =
+              `Yeni sürüm mevcut (${version}). Sayfayı yenileyerek güncel forma geçin.`;
+            banner.style.display = "block";
+          }
+        }
+      } catch (_) { /* Çevrimdışı → sessizce geç */ }
+    }
+
+    function lockApp(msg) {
+      const banner = document.getElementById("lockBanner");
+      banner.textContent = msg;
+      banner.style.display = "block";
+      /* Tüm form elemanlarını pasif yap */
+      document.querySelectorAll("input, textarea, select, button:not(#csvBtn)").forEach((el) => {
+        el.disabled = true;
+      });
+      message("Form kilitli. Yöneticinizle iletişime geçin.");
+    }
+
+    const checklist = [
+      { id: "A1", text: "Koridor-merdiven yigilma kontrolu yapildi" },
+      { id: "A2", text: "Teneffuste riskli davranis gozlenmedi" },
+      { id: "A3", text: "Kacis guzergahlari acik" },
+      { id: "B1", text: "Giris-cikis ve ziyaretci kaydi uygun" },
+      { id: "B2", text: "Acil cikis ve yonlendirmeler uygun" },
+      { id: "B3", text: "Kritik risklere anlik onlem alindi" },
+      { id: "B4", text: "Ziyaretci kimlik dogrulama ve giris kayit kontrolu yapildi" },
+      { id: "B5", text: "Gec gelen-erkenden cikan ogrenci kayitlari dogrulandi" },
+      { id: "B6", text: "Ogrenci tesliminde yetkili kisi kontrolu tamamlandi" },
+      { id: "C1", text: "Islak zemin uyarilari yerlestirildi" },
+      { id: "C2", text: "Bahcede tehlikeli nesneler temizlendi" },
+      { id: "C3", text: "Ortak alan hijyen-guvenlik kontrolu tamam" }
+    ];
+
+    const key = "mobil_guvenlik_checklist_v1";
+    const logoKey = "mobil_guvenlik_logo_v1";
+    let pendingLogo = "";
+
+    function esc(v) {
+      return String(v || "").replace(/"/g, '""');
+    }
+
+    function message(t) {
+      document.getElementById("msg").textContent = t;
+    }
+
+    function todayIso() {
+      const d = new Date();
+      const tzOffset = d.getTimezoneOffset() * 60000;
+      return new Date(d - tzOffset).toISOString().slice(0, 10);
+    }
+
+    function renderList() {
+      const area = document.getElementById("list-area");
+      area.innerHTML = "<h2>Kontrol Maddeleri</h2>";
+
+      checklist.forEach((item) => {
+        const div = document.createElement("div");
+        div.className = "item";
+        div.id = `item_${item.id}`;
+        div.innerHTML = `
+          <p class="item-title">${item.id} - ${item.text}</p>
+          <label class="task-row" id="taskrow_${item.id}"><input type="checkbox" id="task_${item.id}"> Gorev verildi</label>
+          <div class="status" role="radiogroup" aria-label="${item.id} durumu">
+            <label class="ok"><input type="radio" name="st_${item.id}" value="Uygun"><span>Uygun</span></label>
+            <label class="warn"><input type="radio" name="st_${item.id}" value="Gozlem"><span>Gozlem</span></label>
+            <label class="bad"><input type="radio" name="st_${item.id}" value="Uygun Degil"><span>Uygun Degil</span></label>
+          </div>
+          <label for="not_${item.id}">Not/Aksiyon</label>
+          <textarea id="not_${item.id}" placeholder="Kisa not"></textarea>
+        `;
+        area.appendChild(div);
+
+        const taskInput = document.getElementById(`task_${item.id}`);
+        if (taskInput) {
+          taskInput.addEventListener("change", applyRolePermissions);
+        }
+      });
+
+      applyRolePermissions();
+    }
+
+    function getPassiveItemIdsByRole(role) {
+      if (role === "Calisan") {
+        return ["B4", "B5", "B6"];
+      }
+      return [];
+    }
+
+    function applyRolePermissions() {
+      const role = document.getElementById("rol").value;
+      const passiveIds = new Set(getPassiveItemIdsByRole(role));
+
+      checklist.forEach((item) => {
+        const passiveByRole = passiveIds.has(item.id);
+        const taskRow = document.getElementById(`taskrow_${item.id}`);
+        const taskInput = document.getElementById(`task_${item.id}`);
+        const taskAssigned = !!(taskInput && taskInput.checked);
+        const passive = passiveByRole && !taskAssigned;
+        const box = document.getElementById(`item_${item.id}`);
+        if (!box) return;
+
+        if (taskRow) {
+          taskRow.style.display = passive ? "flex" : "none";
+        }
+        if (!passiveByRole && taskInput) {
+          taskInput.checked = false;
+        }
+
+        box.classList.toggle("passive", passive);
+
+        const title = box.querySelector(".item-title");
+        const oldTag = box.querySelector(".passive-tag");
+        if (oldTag) oldTag.remove();
+
+        if (passive) {
+          const tag = document.createElement("span");
+          tag.className = "passive-tag";
+          tag.textContent = "Pasif (Yetki Yok)";
+          title.appendChild(tag);
+        }
+
+        box.querySelectorAll(`input[name=st_${item.id}]`).forEach((radio) => {
+          if (passive) {
+            radio.checked = false;
+          }
+          radio.disabled = passive;
+        });
+
+        const note = document.getElementById(`not_${item.id}`);
+        if (note) {
+          note.disabled = passive;
+          if (passive) {
+            note.value = "";
+            note.placeholder = "Bu madde bu rolde pasif";
+          } else {
+            note.placeholder = "Kisa not";
+          }
+        }
+      });
+    }
+
+    function setLogo(src) {
+      const img = document.getElementById("logoPreview");
+      const ph = document.getElementById("logoPlaceholder");
+      if (src) {
+        img.src = src;
+        img.style.display = "block";
+        ph.style.display = "none";
+      } else {
+        img.removeAttribute("src");
+        img.style.display = "none";
+        ph.style.display = "block";
+      }
+    }
+
+    function onLogoSelected(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) {
+        pendingLogo = "";
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        pendingLogo = reader.result || "";
+        setLogo(pendingLogo);
+        message("Logo secildi. Kalici yapmak icin 'Logoyu kullan' tusuna basin.");
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveLogo() {
+      const current = pendingLogo || document.getElementById("logoPreview").src;
+      if (!current) {
+        message("Once logo secin.");
+        return;
+      }
+      localStorage.setItem(logoKey, current);
+      setLogo(current);
+      message("Logo kaydedildi. Bu cihazda tekrar gorunur.");
+    }
+
+    function loadLogo() {
+      const saved = localStorage.getItem(logoKey);
+      if (saved) {
+        setLogo(saved);
+      }
+    }
+
+    function removeLogo() {
+      localStorage.removeItem(logoKey);
+      pendingLogo = "";
+      document.getElementById("logoInput").value = "";
+      setLogo("");
+      message("Logo kaldirildi.");
+    }
+
+    function collect() {
+      const meta = {
+        okul: document.getElementById("okul").value,
+        tarih: document.getElementById("tarih").value,
+        tur: document.getElementById("tur").value,
+        rol: document.getElementById("rol").value,
+        ad: document.getElementById("ad").value,
+        saat: document.getElementById("saat").value
+      };
+
+      const rows = checklist.map((item) => {
+        const role = document.getElementById("rol").value;
+        const passiveIds = new Set(getPassiveItemIdsByRole(role));
+        const passiveByRole = passiveIds.has(item.id);
+        const taskInput = document.getElementById(`task_${item.id}`);
+        const taskAssigned = !!(taskInput && taskInput.checked);
+        const isPassive = passiveByRole && !taskAssigned;
+        const selected = document.querySelector(`input[name=st_${item.id}]:checked`);
+        return {
+          id: item.id,
+          madde: item.text,
+          durum: isPassive ? "Pasif (Yetki Yok)" : (selected ? selected.value : ""),
+          not: isPassive ? "" : document.getElementById(`not_${item.id}`).value,
+          gorevVerildi: taskAssigned ? "Evet" : "Hayir"
+        };
+      });
+
+      return { meta, rows };
+    }
+
+    function persist() {
+      const data = collect();
+      localStorage.setItem(key, JSON.stringify(data));
+      message("Kaydedildi. Bu cihazda saklandi.");
+    }
+
+    function load() {
+      const raw = localStorage.getItem(key);
+      if (!raw) return;
+
+      try {
+        const data = JSON.parse(raw);
+        const m = data.meta || {};
+        document.getElementById("okul").value = m.okul || "";
+        document.getElementById("tarih").value = m.tarih || todayIso();
+        document.getElementById("tur").value = m.tur || "1. Tur (Ders Baslangici)";
+        document.getElementById("rol").value = m.rol || "Nobetci Ogretmen";
+        document.getElementById("ad").value = m.ad || "";
+        document.getElementById("saat").value = m.saat || "";
+
+        (data.rows || []).forEach((row) => {
+          const taskInput = document.getElementById(`task_${row.id}`);
+          if (taskInput) {
+            taskInput.checked = row.gorevVerildi === "Evet";
+          }
+          if (row.durum) {
+            const radio = document.querySelector(`input[name=st_${row.id}][value="${row.durum}"]`);
+            if (radio) radio.checked = true;
+          }
+          const note = document.getElementById(`not_${row.id}`);
+          if (note) note.value = row.not || "";
+        });
+        applyRolePermissions();
+      } catch (_) {
+        message("Kayit okunamadi.");
+      }
+    }
+
+    function downloadCsv() {
+      const data = collect();
+      const head = [
+        "Tarih", "Tur", "Rol", "AdSoyad", "Saat", "Okul",
+        "MaddeNo", "KontrolMaddesi", "GorevVerildi", "Durum", "Not"
+      ];
+
+      const lines = [head.map((h) => `"${esc(h)}"`).join(",")];
+      data.rows.forEach((r) => {
+        const line = [
+          data.meta.tarih,
+          data.meta.tur,
+          data.meta.rol,
+          data.meta.ad,
+          data.meta.saat,
+          data.meta.okul,
+          r.id,
+          r.madde,
+          r.gorevVerildi,
+          r.durum,
+          r.not
+        ].map((v) => `"${esc(v)}"`).join(",");
+        lines.push(line);
+      });
+
+      const blob = new Blob([lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "mobil-gunluk-checklist.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+      message("CSV indirildi.");
+    }
+
+    function copySummary() {
+      const text = buildSummaryText();
+
+      navigator.clipboard.writeText(text)
+        .then(() => message("Ozet kopyalandi. WhatsApp veya e-postaya yapistirabilirsiniz."))
+        .catch(() => message("Kopyalanamadi. Tarayici izni gerekebilir."));
+    }
+
+    function buildSummaryText() {
+      const data = collect();
+      const total = data.rows.length;
+      const ok = data.rows.filter((x) => x.durum === "Uygun").length;
+      const bad = data.rows.filter((x) => x.durum === "Uygun Degil").length;
+      const warn = data.rows.filter((x) => x.durum === "Gozlem").length;
+      const open = data.rows.filter((x) => x.durum === "Uygun Degil" || x.durum === "Gozlem")
+        .map((x) => `${x.id}: ${x.not || "Not girilmedi"}`)
+        .join("\n");
+
+      const text = [
+        "GUNLUK GUVENLIK OZETI",
+        `Okul: ${data.meta.okul || "-"}`,
+        `Tarih: ${data.meta.tarih || "-"}`,
+        `Tur: ${data.meta.tur || "-"}`,
+        `Rol: ${data.meta.rol || "-"}`,
+        `Ad Soyad: ${data.meta.ad || "-"}`,
+        `Uygun: ${ok}/${total}`,
+        `Gozlem: ${warn}`,
+        `Uygun Degil: ${bad}`,
+        open ? "Aksiyon Gerektirenler:\n" + open : "Aksiyon Gerektiren Kayit Yok"
+      ].join("\n");
+
+      return text;
+    }
+
+    async function sendReport() {
+      const text = buildSummaryText();
+
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: "Gunluk Guvenlik Raporu",
+            text
+          });
+          message("Paylasim menusu acildi.");
+          return;
+        } catch (_) {
+          // User may cancel share; fallback options remain available below.
+        }
+      }
+
+      const encoded = encodeURIComponent(text);
+      const sheet = document.getElementById("shareSheet");
+      document.getElementById("waLink").href = `https://wa.me/?text=${encoded}`;
+      document.getElementById("mailLink").href = `mailto:?subject=Gunluk%20Guvenlik%20Raporu&body=${encoded}`;
+      document.getElementById("smsLink").href = `sms:?body=${encoded}`;
+      sheet.style.display = "block";
+      message("Gonderim secenegi secin.");
+    }
+
+    function resetForm() {
+      if (!confirm("Tum isaretler silinsin mi?")) return;
+      localStorage.removeItem(key);
+      document.querySelectorAll("input[type=radio]").forEach((r) => { r.checked = false; });
+      document.querySelectorAll("input[id^=task_]").forEach((c) => { c.checked = false; });
+      document.querySelectorAll("textarea").forEach((t) => { t.value = ""; });
+      document.getElementById("okul").value = "";
+      document.getElementById("rol").value = "Nobetci Ogretmen";
+      document.getElementById("tur").value = "1. Tur (Ders Baslangici)";
+      document.getElementById("ad").value = "";
+      document.getElementById("saat").value = "";
+      document.getElementById("tarih").value = todayIso();
+      applyRolePermissions();
+      message("Sifirlandi.");
+    }
+
+    renderList();
+    document.getElementById("tarih").value = todayIso();
+    loadLogo();
+    load();
+    remoteInit(); // GitHub kill switch + versiyon kontrolü (ağ varsa)
+
+    document.getElementById("saveBtn").addEventListener("click", persist);
+    document.getElementById("csvBtn").addEventListener("click", downloadCsv);
+    document.getElementById("copyBtn").addEventListener("click", copySummary);
+    document.getElementById("sendBtn").addEventListener("click", sendReport);
+    document.getElementById("copyShareBtn").addEventListener("click", copySummary);
+    document.getElementById("resetBtn").addEventListener("click", resetForm);
+    document.getElementById("rol").addEventListener("change", applyRolePermissions);
+    document.getElementById("logoInput").addEventListener("change", onLogoSelected);
+    document.getElementById("useLogoBtn").addEventListener("click", saveLogo);
+    document.getElementById("removeLogoBtn").addEventListener("click", removeLogo);
+  </script>
+</body>
+</html>
