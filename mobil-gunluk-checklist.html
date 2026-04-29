@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>İSG Kontrol Formu</title>
+  <title>Kurum İçi Güvenlik Kontrol Formu</title>
   <style>
     :root {
       --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b;
@@ -15,59 +15,32 @@
       margin: 0; font-family: "Inter", system-ui, sans-serif; color: var(--text);
       background: #f1f5f9; line-height: 1.5;
     }
-    .wrap { max-width: 860px; margin: 0 auto; padding: 12px; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 12px; padding-bottom: 140px; }
     
-    /* PREMİUM KOMPAKT HEADER */
+    /* KOMPAKT ÜST PANEL */
     .header-card {
       background: var(--card); border-radius: 16px;
-      padding: 12px 16px; /* %35 Küçültüldü */
-      margin-bottom: 12px; 
+      padding: 12px 16px; margin-bottom: 12px; 
       box-shadow: 0 8px 20px rgba(15, 76, 129, 0.06);
       border: 1px solid var(--border);
     }
     
-    .header-main-flex {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-    }
-
-    .logo-container {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
+    .header-main-flex { display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .logo-container { display: flex; align-items: center; gap: 12px; }
     .logo-box { 
       width: 54px; height: 54px; min-width: 54px;
       border-radius: 10px; border: 1.5px dashed #cbd5e1; 
       background: #f8fafc; display: flex; align-items: center; justify-content: center; 
-      overflow: hidden; cursor: pointer; position: relative;
+      overflow: hidden; cursor: pointer;
     }
     .logo-box img { width: 100%; height: 100%; object-fit: contain; }
     .logo-box span { font-size: 0.5rem; color: #64748b; text-align: center; font-weight: 800; text-transform: uppercase; }
     
-    .title-box h1 { 
-      font-size: 0.95rem; margin: 0; color: var(--primary); 
-      letter-spacing: 0.5px; text-transform: uppercase; font-weight: 900;
-    }
-    
-    .report-no-badge {
-      display: inline-block; background: rgba(15, 76, 129, 0.08); color: var(--primary);
-      padding: 2px 8px; border-radius: 6px; font-size: 0.6rem;
-      font-weight: 800; margin-bottom: 4px;
-    }
+    .title-box h1 { font-size: 0.9rem; margin: 0; color: var(--primary); font-weight: 900; text-transform: uppercase; line-height: 1.2; }
+    .report-no-badge { display: inline-block; background: rgba(15, 76, 129, 0.08); color: var(--primary); padding: 2px 8px; border-radius: 6px; font-size: 0.6rem; font-weight: 800; margin-bottom: 4px; }
+    .remove-logo { font-size: 0.55rem; color: var(--bad); cursor: pointer; font-weight: 800; display: block; margin-top: 2px; text-transform: uppercase; opacity: 0.7; }
 
-    .remove-logo {
-        font-size: 0.55rem; color: var(--bad); cursor: pointer; font-weight: 800;
-        display: block; margin-top: 2px; text-transform: uppercase; opacity: 0.7;
-    }
-
-    .card {
-      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 16px; margin-bottom: 12px;
-    }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
     h2 { font-size: 0.85rem; margin: 0 0 12px; color: var(--primary); font-weight: 800; display: flex; align-items: center; gap: 8px; text-transform: uppercase; }
     h2::before { content: ""; width: 3px; height: 12px; background: var(--accent); border-radius: 2px; }
     
@@ -75,34 +48,37 @@
     label { display: block; font-size: 0.65rem; color: #64748b; margin-bottom: 4px; font-weight: 800; text-transform: uppercase; }
     .required::after { content: " *"; color: var(--bad); }
     
-    select, input, textarea { 
-      width: 100%; border: 1px solid #d1d5db; border-radius: 8px; min-height: 38px; 
-      font-size: 0.85rem; padding: 8px 12px; background: #fff; color: var(--text);
-    }
-    
+    select, input, textarea { width: 100%; border: 1px solid #d1d5db; border-radius: 8px; min-height: 38px; font-size: 0.85rem; padding: 8px 12px; outline: none; transition: 0.2s; }
+    select:focus, input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.1); }
+
     .item { border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin-bottom: 10px; background: #fff; }
-    .item.passive { background: #f1f5f9; opacity: 0.5; pointer-events: none; }
-    .item-title { font-size: 0.8rem; font-weight: 700; margin: 0 0 10px; color: #334155; line-height: 1.4; }
+    .item-title { font-size: 0.8rem; font-weight: 700; margin: 0 0 10px; color: #334155; }
     
     .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 10px; }
-    .status label { 
-        margin: 0; font-size: 0.65rem; text-align: center; border: 1px solid #e2e8f0; 
-        border-radius: 6px; padding: 8px 2px; background: #fff; cursor: pointer; color: #94a3b8; font-weight: 800;
-    }
-    .status input { display: none; }
-    .ok input:checked + label { border-color: var(--ok); background: #ecfdf5; color: var(--ok); }
-    .warn input:checked + label { border-color: var(--warn); background: #fffbeb; color: var(--warn); }
-    .bad input:checked + label { border-color: var(--bad); background: #fef2f2; color: var(--bad); }
-
-    .sticky { position: sticky; bottom: 10px; z-index: 10; padding: 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 14px; border: 1px solid rgba(15, 76, 129, 0.1); box-shadow: 0 -5px 20px rgba(0,0,0,0.05); }
-    .btn-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 8px; }
-    .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 700; cursor: pointer; border-radius: 8px; min-height: 42px; font-size: 0.75rem; }
-    .btn-ghost { background: #fff; color: var(--primary); border: 1px solid #d1d5db; font-weight: 700; cursor: pointer; font-size: 0.75rem; border-radius: 8px; min-height: 42px; }
-    .btn-send { width: 100%; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #fff; border: 0; font-weight: 800; text-transform: uppercase; border-radius: 10px; font-size: 0.9rem; min-height: 50px; cursor: pointer; }
+    .status label { margin: 0; font-size: 0.65rem; text-align: center; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 2px; background: #fff; cursor: pointer; color: #94a3b8; font-weight: 800; transition: 0.2s; }
+    .status input { display: none !important; }
     
-    .footer-note { margin: 25px 0; font-size: 0.6rem; color: #94a3b8; text-align: center; font-weight: 800; line-height: 1.6; text-transform: uppercase; letter-spacing: 0.5px; }
+    .st-ok:checked + label { border-color: var(--ok); background: #ecfdf5; color: var(--ok); }
+    .st-wr:checked + label { border-color: var(--warn); background: #fffbeb; color: var(--warn); }
+    .st-bd:checked + label { border-color: var(--bad); background: #fef2f2; color: var(--bad); }
 
-    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .header-main-flex { flex-direction: column; align-items: flex-start; gap: 10px; } }
+    /* LİSANS UYARISI */
+    #license-msg { 
+      display: none; padding: 40px 20px; text-align: center; background: #fff; 
+      border-radius: 12px; border: 2px dashed var(--bad); color: var(--bad);
+      font-weight: 800; margin: 20px 0; font-size: 0.9rem;
+    }
+
+    /* ALT YAPIŞKAN PANEL */
+    .sticky { position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); width: 95%; max-width: 820px; z-index: 100; padding: 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 14px; border: 1px solid rgba(15, 76, 129, 0.1); box-shadow: 0 -5px 25px rgba(0,0,0,0.1); }
+    .btn-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 8px; }
+    .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 700; cursor: pointer; border-radius: 8px; min-height: 42px; font-size: 0.65rem; }
+    .btn-ghost { background: #fff; color: var(--primary); border: 1px solid #d1d5db; font-weight: 700; cursor: pointer; font-size: 0.65rem; border-radius: 8px; min-height: 42px; }
+    .btn-send { width: 100%; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); color: #fff; border: 0; font-weight: 800; text-transform: uppercase; border-radius: 10px; font-size: 0.9rem; min-height: 50px; cursor: pointer; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); }
+    
+    .footer-note { margin: 25px 0; font-size: 0.6rem; color: #94a3b8; text-align: center; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .header-main-flex { flex-direction: column; align-items: flex-start; } .btn-row { grid-template-columns: repeat(2, 1fr); } }
   </style>
 </head>
 <body>
@@ -117,18 +93,17 @@
             </div>
             <div class="title-box">
                 <div class="report-no-badge">RAPOR NO: <span id="reportCount">0</span></div>
-                <h1>Güvenlik Kontrol Formu</h1>
+                <h1>Kurum İçi Güvenlik<br>Kontrol Formu</h1>
                 <span id="removeLogoBtn" class="remove-logo">✖ Logoyu Kaldır</span>
             </div>
         </div>
-
         <div style="min-width: 150px;">
           <label for="rol" class="required">Yetki / Rol</label>
-          <select id="rol" style="min-height: 34px; font-size: 0.75rem; font-weight: 700;">
+          <select id="rol">
             <option value="">Seçiniz...</option>
-            <option value="Isveren">İşveren Vekili</option>
-            <option value="Calisan">Çalışan Temsilcisi</option>
-            <option value="Nobetci">Nöbetçi Öğretmen</option>
+            <option value="İşveren Vekili">İşveren Vekili</option>
+            <option value="Çalışan Temsilcisi">Çalışan Temsilcisi</option>
+            <option value="Nöbetçi Öğretmen">Nöbetçi Öğretmen</option>
           </select>
         </div>
       </div>
@@ -139,43 +114,36 @@
       <h2>Genel Bilgiler</h2>
       <div class="grid">
         <div style="grid-column: 1 / -1;">
-          <label for="okul" class="required">İç Kontrol / Resmi Kurum</label>
-          <select id="okul">
+          <label class="required">Kurum Seçimi</label>
+          <select id="okul" onchange="checkLicense()">
             <option value="">Kurum seçiniz...</option>
-            <optgroup label="✨ KARABURUN KURUMLARI">
-              <option>Karaburun İlçe Milli Eğitim Müdürlüğü</option>
-              <option>Karaburun Anaokulu</option>
-              <option>Karaburun İlkokulu</option>
-              <option>Karaburun Ortaokulu</option>
-              <option>Karaburun Çok Programlı Anadolu Lisesi</option>
+            <optgroup label="AKTİF KURUMLAR">
+              <option value="Karaburun İlkokulu">Karaburun İlkokulu</option>
+              <option value="Güzelbahçe 60. Yıl AL">Güzelbahçe 60. Yıl AL</option>
             </optgroup>
-            <optgroup label="✨ GÜZELBAHÇE KURUMLARI">
-              <option>Güzelbahçe İlçe Milli Eğitim Müdürlüğü</option>
-              <option>Güzelbahçe Halk Eğitimi Merkezi</option>
-              <option>Vali Kazım Paşa İlkokulu</option>
-              <option>60. Yıl Anadolu Lisesi</option>
-            </optgroup>
-            <option value="LOCKED">🔒 Diğer Kurumlar (Kilitli)</option>
+            <option value="LOCKED">🔒 Diğer Kurumlar (Lisans Aktif Değil)</option>
           </select>
         </div>
-        <div><label for="ad" class="required">Ad Soyad</label><input id="ad" placeholder="..." /></div>
-        <div><label for="saat" class="required">Saat</label><input id="saat" type="time" /></div>
-        <div style="display:none;"><input id="tarih" type="date" /></div>
-        <div style="display:none;"><select id="tur"><option>1. Tur</option></select></div>
+        <div><label class="required">Ad Soyad</label><input id="ad" placeholder="Adınızı giriniz" /></div>
+        <div><label class="required">Saat</label><input id="saat" type="time" /></div>
+        <div><label>Tarih</label><input id="tarih" type="date" /></div>
+        <div><label>Kontrol Turu</label><select id="tur"><option>1. Tur</option><option>2. Tur</option><option>3. Tur</option></select></div>
       </div>
     </div>
 
+    <div id="license-msg">⚠️ BU KURUM İÇİN LİSANSINIZ AKTİF DEĞİL.<br><small style="font-size: 0.7rem;">Giriş yapmak için uygulama yöneticisiyle görüşün.</small></div>
+    
     <div id="list-area"></div>
 
     <div class="sticky">
       <div class="btn-row">
-        <button class="btn-primary" id="saveBtn">💾 Kaydet</button>
-        <button class="btn-ghost" id="copyBtn">📋 Kopyala</button>
-        <button class="btn-ghost" id="csvBtn">📊 Excel</button>
-        <button class="btn-ghost" id="resetBtn" style="color:var(--bad);">🧹 Sıfırla</button>
+        <button class="btn-primary" onclick="saveData()">💾 Kaydet</button>
+        <button class="btn-ghost" onclick="copyToClipboard()">📋 Kopyala</button>
+        <button class="btn-ghost" onclick="exportCSV()">📊 Excel</button>
+        <button class="btn-ghost" onclick="resetForm()" style="color:var(--bad);">🧹 Sıfırla</button>
       </div>
-      <button class="btn-send" id="sendBtn">RAPORU PAYLAŞ / GÖNDER</button>
-      <p id="msg" style="font-size:0.65rem; color:var(--bad); text-align:center; margin-top:6px; font-weight:800; min-height:10px;"></p>
+      <button class="btn-send" onclick="shareReport()">RAPORU PAYLAŞ / GÖNDER</button>
+      <p id="msg" style="font-size:0.65rem; text-align:center; margin-top:6px; font-weight:800; min-height:14px;"></p>
     </div>
 
     <p class="footer-note">BAŞÖĞRETMEN MUZAFFER ÇINAR<br>İSG UZMANI & TSE TETKİK GÖREVLİSİ</p>
@@ -185,22 +153,35 @@
     const checklist = [
       { id: "A1", text: "Koridor ve merdivenlerde yığılma kontrolü yapıldı" },
       { id: "A2", text: "Teneffüste riskli öğrenci davranışları gözlenmedi" },
-      { id: "A3", text: "Acil çıkış ve tahliye güzergahları açık" },
       { id: "B1", text: "Giriş-çıkış ve ziyaretçi kayıt protokolü uygun" },
-      { id: "B2", text: "Yönlendirme levhaları ve acil çıkış ışıkları çalışır durumda" },
-      { id: "C1", text: "Islak zemin uyarı levhaları görünür şekilde yerleştirildi" },
-      { id: "C2", text: "Okul bahçesinde tehlikeli yabancı nesne kontrolü yapıldı" }
+      { id: "B2", text: "Acil çıkış kapıları ve tahliye yolları açık/engelsiz" },
+      { id: "C1", text: "Islak zemin uyarı levhaları görünür durumda" },
+      { id: "C2", text: "Bahçe ve dış mekan fiziksel risk kontrolü yapıldı" },
+      { id: "C3", text: "Pencere ve kapı güvenlik kilidi kontrolleri tamam" }
     ];
 
-    const key = "isg_mobil_data_2026";
-    const logoKey = "isg_app_logo";
-    const counterKey = "isg_report_counter";
+    const logoKey = "isg_pro_logo_store";
+    const counterKey = "isg_pro_counter";
 
-    function todayIso() { return new Date().toISOString().slice(0, 10); }
-    function message(t, isErr = true) { 
-        const el = document.getElementById("msg");
-        el.textContent = t; el.style.color = isErr ? "var(--bad)" : "var(--primary)";
-        setTimeout(() => el.textContent = "", 3000); 
+    function message(txt, err=false) {
+      const m = document.getElementById("msg");
+      m.textContent = txt; m.style.color = err ? "var(--bad)" : "var(--ok)";
+      setTimeout(() => m.textContent="", 3000);
+    }
+
+    function checkLicense() {
+      const val = document.getElementById("okul").value;
+      const list = document.getElementById("list-area");
+      const lic = document.getElementById("license-msg");
+      
+      if(val === "LOCKED") {
+        list.style.display = "none";
+        lic.style.display = "block";
+        message("Lisans Aktif Değil!", true);
+      } else {
+        list.style.display = "block";
+        lic.style.display = "none";
+      }
     }
 
     function renderList() {
@@ -209,21 +190,86 @@
       checklist.forEach(item => {
         const div = document.createElement("div");
         div.className = "item";
-        div.id = `item_${item.id}`;
         div.innerHTML = `
           <p class="item-title">${item.id} - ${item.text}</p>
           <div class="status">
-            <input type="radio" name="st_${item.id}" id="ok_${item.id}" value="Uygun">
+            <input type="radio" name="st_${item.id}" id="ok_${item.id}" value="Uygun" class="st-ok">
             <label for="ok_${item.id}">Uygun</label>
-            <input type="radio" name="st_${item.id}" id="wr_${item.id}" value="Gözlem">
+            <input type="radio" name="st_${item.id}" id="wr_${item.id}" value="Gözlem" class="st-wr">
             <label for="wr_${item.id}">Gözlem</label>
-            <input type="radio" name="st_${item.id}" id="bd_${item.id}" value="U. Değil">
+            <input type="radio" name="st_${item.id}" id="bd_${item.id}" value="Uygun Değil" class="st-bd">
             <label for="bd_${item.id}">U. Değil</label>
           </div>
-          <textarea id="not_${item.id}" style="min-height:35px; font-size:0.8rem;" placeholder="Not..."></textarea>
+          <textarea id="not_${item.id}" style="min-height:35px; font-size:0.8rem;" placeholder="Gerekirse not yazın..."></textarea>
         `;
         area.appendChild(div);
       });
+    }
+
+    function resetForm() {
+      if(!confirm("Tüm veriler temizlenecek. Onaylıyor musunuz?")) return;
+      document.querySelectorAll("input[type=text], select, textarea").forEach(el => el.value = "");
+      document.querySelectorAll("input[type=radio]").forEach(el => el.checked = false);
+      document.getElementById("tarih").value = new Date().toISOString().slice(0, 10);
+      document.getElementById("saat").value = new Date().toLocaleTimeString('tr-TR', {hour:'2-digit', minute:'2-digit'});
+      checkLicense();
+      message("Form sıfırlandı.");
+    }
+
+    function saveData() {
+      const okul = document.getElementById("okul").value;
+      if(!okul || okul === "LOCKED") return message("Geçerli bir kurum seçin!", true);
+      
+      let count = parseInt(localStorage.getItem(counterKey) || 0) + 1;
+      localStorage.setItem(counterKey, count);
+      document.getElementById("reportCount").textContent = count;
+      message("Rapor başarıyla kaydedildi.");
+    }
+
+    function getReportText() {
+      let t = `🛡️ KURUM İÇİ GÜVENLİK RAPORU\n`;
+      t += `---------------------------\n`;
+      t += `Kurum: ${document.getElementById("okul").value}\n`;
+      t += `Denetçi: ${document.getElementById("ad").value} (${document.getElementById("rol").value})\n`;
+      t += `Tarih/Saat: ${document.getElementById("tarih").value} / ${document.getElementById("saat").value}\n\n`;
+      
+      checklist.forEach(item => {
+        const sel = document.querySelector(`input[name="st_${item.id}"]:checked`);
+        const note = document.getElementById(`not_${item.id}`).value;
+        if(sel) {
+          t += `📍 ${item.id}: ${sel.value} ${note ? '['+note+']' : ''}\n`;
+        }
+      });
+      t += `\nİSG PRO Sisteminden otomatik oluşturulmuştur.`;
+      return t;
+    }
+
+    function copyToClipboard() {
+      const text = getReportText();
+      navigator.clipboard.writeText(text).then(() => message("Rapor kopyalandı!"));
+    }
+
+    function shareReport() {
+      const text = getReportText();
+      if(navigator.share) {
+        navigator.share({ title: 'Güvenlik Kontrol Raporu', text: text });
+      } else {
+        window.open(`https://wa.me/?text=${encodeURIComponent(text)}`);
+      }
+    }
+
+    function exportCSV() {
+      let csv = "\uFEFFMadde;Durum;Not\n";
+      checklist.forEach(item => {
+        const sel = document.querySelector(`input[name="st_${item.id}"]:checked`);
+        const note = document.getElementById(`not_${item.id}`).value;
+        csv += `${item.id};${sel ? sel.value : '-'};${note}\n`;
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `ISG_Denetim_${new Date().getTime()}.csv`;
+      link.click();
     }
 
     document.getElementById("logoInput").onchange = (e) => {
@@ -237,11 +283,19 @@
       reader.readAsDataURL(e.target.files[0]);
     };
 
-    document.getElementById("removeLogoBtn").onclick = () => confirm("Silinsin mi?") && (localStorage.removeItem(logoKey), location.reload());
+    document.getElementById("removeLogoBtn").onclick = () => {
+      if(confirm("Kurum logosu kaldırılsın mı?")) {
+        localStorage.removeItem(logoKey);
+        location.reload();
+      }
+    };
 
     window.onload = () => {
       renderList();
+      document.getElementById("tarih").value = new Date().toISOString().slice(0, 10);
+      document.getElementById("saat").value = new Date().toLocaleTimeString('tr-TR', {hour:'2-digit', minute:'2-digit'});
       document.getElementById("reportCount").textContent = localStorage.getItem(counterKey) || 0;
+      
       const savedLogo = localStorage.getItem(logoKey);
       if(savedLogo) { 
           document.getElementById("logoPreview").src = savedLogo; 
