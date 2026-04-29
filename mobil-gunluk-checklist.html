@@ -6,274 +6,79 @@
   <title>Mobil Günlük Güvenlik Checklisti</title>
   <style>
     :root {
-      --bg: #f4f7fb;
-      --card: #ffffff;
-      --text: #1f2937;
-      --muted: #6b7280;
-      --ok: #0b7a45;
-      --warn: #b45309;
-      --bad: #b91c1c;
-      --primary: #0f4c81;
-      --border: #dbe3ee;
+      --bg: #f4f7fb; --card: #ffffff; --text: #1f2937; --muted: #6b7280;
+      --ok: #0b7a45; --warn: #b45309; --bad: #b91c1c; --primary: #0f4c81; --border: #dbe3ee;
     }
-
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
-      margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      color: var(--text);
+      margin: 0; font-family: "Segoe UI", Arial, sans-serif; color: var(--text);
       background: linear-gradient(180deg, #eef3fb 0%, #f7f9fd 100%);
     }
-
-    .wrap {
-      max-width: 860px;
-      margin: 0 auto;
-      padding: 14px;
-    }
-
+    .wrap { max-width: 860px; margin: 0 auto; padding: 14px; }
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px;
-      margin-bottom: 12px;
-      box-shadow: 0 8px 20px rgba(15, 76, 129, 0.06);
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+      padding: 14px; margin-bottom: 12px; box-shadow: 0 8px 20px rgba(15, 76, 129, 0.06);
     }
-
-    h1 {
-      font-size: 1.2rem;
-      margin: 0 0 8px;
-      color: var(--primary);
-    }
-
-    h2 {
-      font-size: 1rem;
-      margin: 4px 0 10px;
-      color: #0f172a;
-    }
-
-    .sub {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-top: 0;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    label {
-      display: block;
-      font-size: 0.86rem;
-      color: #334155;
-      margin-bottom: 4px;
-      font-weight: 600;
-    }
-
-    input, select, textarea, button {
-      width: 100%;
-      border: 1px solid #cbd5e1;
-      border-radius: 10px;
-      min-height: 44px;
-      font-size: 1rem;
-      padding: 10px;
-      background: #fff;
-    }
-
-    textarea {
-      min-height: 70px;
-      resize: vertical;
-    }
-
-    .item {
-      border: 1px dashed #c7d2e5;
-      border-radius: 12px;
-      padding: 10px;
-      margin-bottom: 10px;
-      background: #fbfdff;
-    }
-
-    .item.passive {
-      background: #f1f5f9;
-      border-style: solid;
-      opacity: 0.85;
-    }
-
-    .item-title {
-      font-size: 0.94rem;
-      font-weight: 600;
-      margin: 0 0 8px;
-    }
-
-    .task-row {
-      display: none;
-      margin-bottom: 8px;
-      font-size: 0.84rem;
-      color: #334155;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .task-row input[type="checkbox"] {
-      width: auto;
-      min-height: auto;
-      margin: 0;
-      transform: scale(1.1);
-    }
-
-    .passive-tag {
-      display: inline-block;
-      margin-left: 6px;
-      padding: 2px 8px;
-      border-radius: 999px;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #7c2d12;
-      background: #ffedd5;
-      border: 1px solid #fed7aa;
-      vertical-align: middle;
-    }
-
-    .status {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 6px;
-      margin-bottom: 8px;
-    }
-
-    .status label {
-      margin: 0;
-      font-weight: 500;
-      font-size: 0.82rem;
-      text-align: center;
-      border: 1px solid #cbd5e1;
-      border-radius: 9px;
-      padding: 7px 4px;
-      background: #fff;
-    }
-
-    .status input {
-      display: none;
-    }
-
-    .status input:checked + span {
-      display: inline-block;
-      width: 100%;
-      color: #fff;
-      border-radius: 7px;
-      padding: 6px 2px;
-    }
-
+    h1 { font-size: 1.2rem; margin: 0 0 8px; color: var(--primary); }
+    h2 { font-size: 1rem; margin: 4px 0 10px; color: #0f172a; }
+    .sub { color: var(--muted); font-size: 0.9rem; margin-top: 0; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    label { display: block; font-size: 0.86rem; color: #334155; margin-bottom: 4px; font-weight: 600; }
+    input, select, textarea, button { width: 100%; border: 1px solid #cbd5e1; border-radius: 10px; min-height: 44px; font-size: 1rem; padding: 10px; background: #fff; }
+    textarea { min-height: 70px; resize: vertical; }
+    .item { border: 1px dashed #c7d2e5; border-radius: 12px; padding: 10px; margin-bottom: 10px; background: #fbfdff; }
+    .item.passive { background: #f1f5f9; border-style: solid; opacity: 0.85; }
+    .item-title { font-size: 0.94rem; font-weight: 600; margin: 0 0 8px; }
+    .passive-tag { display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; color: #7c2d12; background: #ffedd5; border: 1px solid #fed7aa; }
+    .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+    .status label { margin: 0; font-weight: 500; font-size: 0.82rem; text-align: center; border: 1px solid #cbd5e1; border-radius: 9px; padding: 7px 4px; background: #fff; cursor: pointer;}
+    .status input { display: none; }
+    .status input:checked + span { display: inline-block; width: 100%; color: #fff; border-radius: 7px; padding: 6px 2px; }
     .ok input:checked + span { background: var(--ok); }
     .warn input:checked + span { background: var(--warn); }
     .bad input:checked + span { background: var(--bad); }
-
-    .btn-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 600; cursor: pointer;}
-    .btn-ghost { background: #fff; color: #0f4c81; border: 1px solid #9fb7d7; font-weight: 600; cursor: pointer;}
-    .btn-send {
-      background: #ff6a00; color: #ffffff; border: 2px solid #c2410c; font-weight: 800;
-      box-shadow: 0 8px 18px rgba(255, 106, 0, 0.35); cursor: pointer;
-    }
-
+    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 600; cursor: pointer; }
+    .btn-ghost { background: #fff; color: #0f4c81; border: 1px solid #9fb7d7; font-weight: 600; cursor: pointer; }
+    .btn-send { background: #ff6a00; color: #ffffff; border: 2px solid #c2410c; font-weight: 800; box-shadow: 0 8px 18px rgba(255, 106, 0, 0.35); cursor: pointer; }
     .sticky { position: sticky; bottom: 8px; z-index: 10; }
-
-    .logo-wrap {
-      display: grid;
-      grid-template-columns: 84px 1fr;
-      gap: 10px;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-
-    .logo-box {
-      width: 84px; height: 84px; border-radius: 12px; border: 1px solid #cbd5e1;
-      background: #f8fbff; display: flex; align-items: center; justify-content: center; overflow: hidden;
-    }
-
+    .logo-box { width: 84px; height: 84px; border-radius: 12px; border: 1px solid #cbd5e1; background: #f8fbff; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-right: 10px;}
     .logo-box img { width: 100%; height: 100%; object-fit: contain; display: none; }
-
-    .footer-note {
-      margin: 18px 0 10px; font-size: 0.82rem; color: #334155; text-align: center;
-      font-weight: 600; letter-spacing: 0.2px;
-    }
-
-    #lockBanner {
-      display: none; position: sticky; top: 0; z-index: 100; background: #b91c1c;
-      color: #fff; text-align: center; font-weight: 700; padding: 12px;
-    }
-
-    #updateBanner {
-      display: none; background: #0f4c81; color: #fff; text-align: center;
-      padding: 8px; border-radius: 8px; margin-bottom: 10px; cursor: pointer;
-    }
-
-    .share-sheet {
-      margin-top: 10px; border: 1px solid #cbd5e1; border-radius: 12px;
-      background: #f8fbff; padding: 10px; display: none;
-    }
-
-    .share-link {
-      display: block; text-align: center; text-decoration: none; color: #0f4c81;
-      background: #fff; border: 1px solid #9fb7d7; border-radius: 10px;
-      min-height: 42px; line-height: 42px; font-weight: 600; margin-bottom: 5px;
-    }
-
-    @media (max-width: 600px) {
-      .grid { grid-template-columns: 1fr; }
-      .btn-row { grid-template-columns: 1fr; }
-    }
+    .footer-note { margin: 18px 0 10px; font-size: 0.82rem; color: #334155; text-align: center; font-weight: 600; }
+    .share-sheet { margin-top: 10px; border: 1px solid #cbd5e1; border-radius: 12px; background: #f8fbff; padding: 10px; display: none; }
+    .share-link { display: block; text-align: center; text-decoration: none; color: #0f4c81; background: #fff; border: 1px solid #9fb7d7; border-radius: 10px; min-height: 42px; line-height: 42px; font-weight: 600; margin-bottom: 5px; }
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .btn-row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
-  <div id="lockBanner" role="alert"></div>
-  <div id="updateBanner" onclick="location.reload(true)"></div>
-  
   <div class="wrap">
     <div class="card">
-      <h2>Rol Seçimi</h2>
-      <label for="rol">Formu dolduran rol</label>
-      <select id="rol">
-        <option value="Isveren">İşveren/İşveren Vekili</option>
-        <option value="Calisan">Çalışan</option>
-        <option value="Nobetci">Nöbetçi Öğretmen</option>
-      </select>
-    </div>
-
-    <div class="card">
       <h1>Mobil Günlük Güvenlik Checklisti</h1>
-      <p class="sub">İSG denetimleri kapsamında günlük saha kontrol formu.</p>
-      <div class="logo-wrap">
-        <div class="logo-box">
+      <div style="display:flex; align-items:center;">
+        <div class="logo-box" id="logoWrap">
           <img id="logoPreview" alt="Logo" />
-          <div id="logoPlaceholder" style="font-size:0.7rem; color:#64748b; text-align:center;">Logo Yok</div>
+          <span id="logoPlaceholder" style="font-size:0.6rem; color:#64748b;">Logo Seç</span>
         </div>
-        <div>
-          <label for="logoInput">Okul Logosu Ekle</label>
-          <input id="logoInput" type="file" accept="image/*" style="font-size:0.8rem; min-height:36px;" />
-          <div style="display:flex; gap:5px; margin-top:5px;">
-            <button class="btn-ghost" type="button" id="useLogoBtn" style="min-height:30px; font-size:0.8rem;">Kaydet</button>
-            <button class="btn-ghost" type="button" id="removeLogoBtn" style="min-height:30px; font-size:0.8rem;">Kaldır</button>
-          </div>
+        <div style="flex:1;">
+          <label for="rol">Denetim Yapan Rol</label>
+          <select id="rol">
+            <option value="Isveren">İşveren/İşveren Vekili</option>
+            <option value="Calisan">Çalışan</option>
+            <option value="Nobetci">Nöbetçi Öğretmen</option>
+          </select>
         </div>
+      </div>
+      <input id="logoInput" type="file" accept="image/*" style="display:none;" />
+      <div style="margin-top:10px; display:flex; gap:5px;">
+        <button class="btn-ghost" style="min-height:30px; font-size:0.75rem;" onclick="document.getElementById('logoInput').click()">Logo Yükle</button>
+        <button class="btn-ghost" style="min-height:30px; font-size:0.75rem;" id="removeLogoBtn">Logoyu Sil</button>
       </div>
     </div>
 
     <div class="card">
       <h2>Genel Bilgiler</h2>
       <div class="grid">
-        <div><label for="okul">Okul</label><input id="okul" placeholder="Okul Adı" /></div>
+        <div><label for="okul">Okul Adı</label><input id="okul" placeholder="Örn: Atatürk İlkokulu" /></div>
         <div><label for="tarih">Tarih</label><input id="tarih" type="date" /></div>
         <div>
           <label for="tur">Kontrol Turu</label>
@@ -282,7 +87,7 @@
             <option>2. Tur (Öğle/İkindi)</option>
           </select>
         </div>
-        <div><label for="ad">Ad Soyad</label><input id="ad" placeholder="Ad Soyad" /></div>
+        <div><label for="ad">Ad Soyad</label><input id="ad" placeholder="Denetleyen Kişi" /></div>
         <div><label for="saat">Saat</label><input id="saat" type="time" /></div>
       </div>
     </div>
@@ -292,49 +97,42 @@
     <div class="card sticky">
       <div class="btn-row">
         <button class="btn-primary" id="saveBtn">Kaydet</button>
-        <button class="btn-ghost" id="csvBtn">CSV İndir</button>
+        <button class="btn-ghost" id="csvBtn">Excel/CSV İndir</button>
         <button class="btn-ghost" id="copyBtn">Özeti Kopyala</button>
         <button class="btn-ghost" id="resetBtn">Sıfırla</button>
       </div>
-      <button class="btn-send" id="sendBtn" style="margin-top:10px;">Raporu Gönder</button>
+      <button class="btn-send" id="sendBtn" style="margin-top:10px;">Raporu Gönder (WhatsApp/Mail)</button>
       <div class="share-sheet" id="shareSheet">
-        <a id="waLink" class="share-link" target="_blank">WhatsApp ile Gönder</a>
+        <a id="waLink" class="share-link" target="_blank">WhatsApp ile Paylaş</a>
         <a id="mailLink" class="share-link">E-posta ile Gönder</a>
         <button class="btn-ghost" id="closeShare">Kapat</button>
       </div>
-      <p id="msg" style="font-size:0.85rem; color:var(--primary); text-align:center; margin-top:8px;"></p>
+      <p id="msg" style="font-size:0.85rem; color:var(--primary); text-align:center; margin-top:8px; font-weight:600;"></p>
     </div>
 
-    <p class="footer-note">İŞ GÜVENLİĞİ UZMANI MUZAFFER ÇINAR - 2026 V1</p>
+    <p class="footer-note">İŞ GÜVENLİĞİ UZMANI MUZAFFER ÇINAR - 2026 V2</p>
   </div>
 
   <script>
-    const APP_VERSION = "1.0.1";
-    const REMOTE_BASE = "https://muzaffercinar.github.io/isg-checklist";
-
     const checklist = [
-      { id: "A1", text: "Koridor-merdiven yığılma kontrolü yapıldı" },
-      { id: "A2", text: "Teneffüste riskli davranış gözlenmedi" },
-      { id: "A3", text: "Kaçış güzergahları açık" },
-      { id: "B1", text: "Giriş-çıkış ve ziyaretçi kaydı uygun" },
-      { id: "B2", text: "Acil çıkış ve yönlendirmeler uygun" },
-      { id: "B3", text: "Kritik risklere anlık önlem alındı" },
-      { id: "B4", text: "Ziyaretçi kimlik doğrulama ve kayıt kontrolü yapıldı" },
-      { id: "B5", text: "Geç gelen/erken çıkan öğrenci kayıtları doğrulandı" },
-      { id: "B6", text: "Öğrenci tesliminde yetkili kişi kontrolü tamamlandı" },
-      { id: "C1", text: "Islak zemin uyarıları yerleştirildi" },
-      { id: "C2", text: "Bahçede tehlikeli nesne kontrolü yapıldı" },
-      { id: "C3", text: "Ortak alan hijyen-güvenlik kontrolü tamam" }
+      { id: "A1", text: "Koridor ve merdivenlerde yığılma kontrolü yapıldı" },
+      { id: "A2", text: "Teneffüste riskli öğrenci davranışları gözlenmedi" },
+      { id: "A3", text: "Acil çıkış ve tahliye güzergahları açık" },
+      { id: "B1", text: "Giriş-çıkış ve ziyaretçi kayıt protokolü uygun" },
+      { id: "B2", text: "Yönlendirme levhaları ve acil çıkış ışıkları çalışır durumda" },
+      { id: "B3", text: "Tespit edilen anlık risklere müdahale edildi" },
+      { id: "B4", text: "Ziyaretçi kimlik doğrulama işlemleri yapıldı" },
+      { id: "B5", text: "Geç gelen/erken ayrılan öğrenci takibi yapıldı" },
+      { id: "B6", text: "Öğrenci teslimatı yetkili kişilere yapıldı" },
+      { id: "C1", text: "Islak zemin uyarı levhaları görünür şekilde yerleştirildi" },
+      { id: "C2", text: "Okul bahçesinde tehlikeli yabancı nesne kontrolü yapıldı" },
+      { id: "C3", text: "Tuvalet ve ortak alan hijyen-güvenlik kontrolü tamam" }
     ];
 
-    const key = "mobil_isg_checklist_v1";
-    const logoKey = "isg_logo_data";
+    const key = "isg_mobil_data_2026";
+    const logoKey = "isg_app_logo";
 
-    function todayIso() {
-      const d = new Date();
-      return new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().slice(0, 10);
-    }
-
+    function todayIso() { const d = new Date(); return new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().slice(0, 10); }
     function message(t) { document.getElementById("msg").textContent = t; setTimeout(() => document.getElementById("msg").textContent = "", 3000); }
 
     function renderList() {
@@ -346,13 +144,12 @@
         div.id = `item_${item.id}`;
         div.innerHTML = `
           <p class="item-title">${item.id} - ${item.text}</p>
-          <label class="task-row" id="taskrow_${item.id}"><input type="checkbox" id="task_${item.id}"> Görev verildi</label>
           <div class="status">
             <label class="ok"><input type="radio" name="st_${item.id}" value="Uygun"><span>Uygun</span></label>
             <label class="warn"><input type="radio" name="st_${item.id}" value="Gözlem"><span>Gözlem</span></label>
             <label class="bad"><input type="radio" name="st_${item.id}" value="Uygun Değil"><span>Uygun Değil</span></label>
           </div>
-          <textarea id="not_${item.id}" placeholder="Not veya aksiyon..."></textarea>
+          <textarea id="not_${item.id}" placeholder="Varsa aksiyon notunuzu yazın..."></textarea>
         `;
         area.appendChild(div);
       });
@@ -362,19 +159,17 @@
     function applyRolePermissions() {
       const role = document.getElementById("rol").value;
       const passiveIds = role === "Calisan" ? ["B4", "B5", "B6"] : [];
-      
       checklist.forEach(item => {
         const isPassive = passiveIds.includes(item.id);
         const box = document.getElementById(`item_${item.id}`);
         box.classList.toggle("passive", isPassive);
         box.querySelectorAll("input, textarea").forEach(el => el.disabled = isPassive);
-        
         const title = box.querySelector(".item-title");
         const existingTag = box.querySelector(".passive-tag");
         if (existingTag) existingTag.remove();
         if (isPassive) {
           const tag = document.createElement("span");
-          tag.className = "passive-tag"; tag.textContent = "Yetki Yok";
+          tag.className = "passive-tag"; tag.textContent = "Yetki Dışı";
           title.appendChild(tag);
         }
       });
@@ -398,59 +193,78 @@
       return { meta, rows };
     }
 
-    function downloadCsv() {
-      const data = collect();
-      const head = ["Tarih", "Tür", "Rol", "Ad Soyad", "Saat", "Okul", "Madde No", "Durum", "Not"];
-      const lines = [head.map(h => `"${h}"`).join(",")];
-      
-      data.rows.forEach(r => {
-        lines.push([data.meta.tarih, data.meta.tur, data.meta.rol, data.meta.ad, data.meta.saat, data.meta.okul, r.id, r.durum, r.not].map(v => `"${v}"`).join(","));
-      });
-
-      // UTF-8 BOM ekleyerek Excel'in Türkçe karakterleri tanımasını sağlıyoruz
-      const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url; a.download = `ISG_Rapor_${data.meta.tarih}.csv`;
-      a.click();
-      message("CSV İndirildi (Excel uyumlu).");
-    }
-
     function buildSummary() {
       const data = collect();
-      const issues = data.rows.filter(r => r.durum !== "Uygun" && r.durum !== "İşaretlenmedi");
-      let text = `*GÜNLÜK GÜVENLİK ÖZETİ*\nOkul: ${data.meta.okul}\nTarih: ${data.meta.tarih}\nDenetleyen: ${data.meta.ad}\n\n`;
-      text += issues.length > 0 ? "*Tespit Edilen Riskler:*\n" + issues.map(i => `- ${i.id}: ${i.durum} (${i.not || 'Not yok'})`).join("\n") : "✅ Tüm kontroller uygun.";
+      const total = data.rows.length;
+      const ok = data.rows.filter(x => x.durum === "Uygun").length;
+      const bad = data.rows.filter(x => x.durum === "Uygun Değil").length;
+      const warn = data.rows.filter(x => x.durum === "Gözlem").length;
+      const actions = data.rows.filter(x => x.durum === "Uygun Değil" || x.durum === "Gözlem");
+
+      let text = `📋 *GÜNLÜK GÜVENLİK RAPORU*\n`;
+      text += `--------------------------------\n`;
+      text += `🏫 *Okul:* ${data.meta.okul || "-"}\n`;
+      text += `👤 *Denetleyen:* ${data.meta.ad || "-"}\n`;
+      text += `🎭 *Rol:* ${data.meta.rol}\n`;
+      text += `🔄 *Tur:* ${data.meta.tur}\n`;
+      text += `📅 *Tarih:* ${data.meta.tarih} | *Saat:* ${data.meta.saat || "-"}\n`;
+      text += `--------------------------------\n`;
+      text += `✅ *Uygun:* ${ok}/${total}\n`;
+      text += `⚠️ *Gözlem:* ${warn}\n`;
+      text += `❌ *Uygun Değil:* ${bad}\n`;
+      text += `--------------------------------\n`;
+
+      if (actions.length > 0) {
+        text += `🚀 *AKSİYON GEREKTİRENLER:*\n`;
+        actions.forEach(item => {
+          text += `\n📍 *${item.id}:* ${item.madde}\n`;
+          text += `   - *Durum:* ${item.durum}\n`;
+          text += `   - *Not:* ${item.not || "Açıklama girilmedi."}\n`;
+        });
+      } else {
+        text += `✨ *Tüm kontroller uygun görülmüştür.*`;
+      }
       return text;
     }
 
-    async function sendReport() {
-      const text = buildSummary();
-      const sheet = document.getElementById("shareSheet");
-      document.getElementById("waLink").href = `https://wa.me/?text=${encodeURIComponent(text)}`;
-      document.getElementById("mailLink").href = `mailto:?subject=ISG Raporu&body=${encodeURIComponent(text)}`;
-      sheet.style.display = "block";
-    }
+    document.getElementById("csvBtn").onclick = () => {
+      const data = collect();
+      const head = ["Tarih", "Tur", "Rol", "Denetleyen", "Saat", "Okul", "Madde No", "Durum", "Not"];
+      const lines = [head.map(h => `"${h}"`).join(",")];
+      data.rows.forEach(r => {
+        lines.push([data.meta.tarih, data.meta.tur, data.meta.rol, data.meta.ad, data.meta.saat, data.meta.okul, r.id, r.durum, r.not].map(v => `"${v}"`).join(","));
+      });
+      const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a"); a.href = url; a.download = `ISG_Denetim_${data.meta.tarih}.csv`; a.click();
+      message("Excel/CSV indirildi.");
+    };
 
-    // Event Listeners
     document.getElementById("saveBtn").onclick = () => { localStorage.setItem(key, JSON.stringify(collect())); message("Cihaza Kaydedildi."); };
-    document.getElementById("csvBtn").onclick = downloadCsv;
-    document.getElementById("copyBtn").onclick = () => { navigator.clipboard.writeText(buildSummary()); message("Özet Kopyalandı."); };
-    document.getElementById("sendBtn").onclick = sendReport;
+    document.getElementById("copyBtn").onclick = () => { navigator.clipboard.writeText(buildSummary()); message("Özet kopyalandı."); };
+    document.getElementById("sendBtn").onclick = () => {
+      const text = buildSummary();
+      const encoded = encodeURIComponent(text);
+      document.getElementById("waLink").href = `https://wa.me/?text=${encoded}`;
+      document.getElementById("mailLink").href = `mailto:?subject=Günlük Güvenlik Raporu&body=${encoded}`;
+      document.getElementById("shareSheet").style.display = "block";
+    };
     document.getElementById("closeShare").onclick = () => document.getElementById("shareSheet").style.display = "none";
     document.getElementById("rol").onchange = applyRolePermissions;
     document.getElementById("resetBtn").onclick = () => { if(confirm("Tüm formu sıfırlamak istiyor musunuz?")) { localStorage.removeItem(key); location.reload(); }};
 
-    // Logo İşlemleri
     document.getElementById("logoInput").onchange = (e) => {
       const reader = new FileReader();
-      reader.onload = () => { document.getElementById("logoPreview").src = reader.result; document.getElementById("logoPreview").style.display="block"; document.getElementById("logoPlaceholder").style.display="none"; };
+      reader.onload = () => { 
+        document.getElementById("logoPreview").src = reader.result; 
+        document.getElementById("logoPreview").style.display="block"; 
+        document.getElementById("logoPlaceholder").style.display="none"; 
+        localStorage.setItem(logoKey, reader.result);
+      };
       reader.readAsDataURL(e.target.files[0]);
     };
-    document.getElementById("useLogoBtn").onclick = () => { localStorage.setItem(logoKey, document.getElementById("logoPreview").src); message("Logo kaydedildi."); };
     document.getElementById("removeLogoBtn").onclick = () => { localStorage.removeItem(logoKey); location.reload(); };
 
-    // Init
     window.onload = () => {
       renderList();
       document.getElementById("tarih").value = todayIso();
@@ -460,6 +274,7 @@
       if(savedData) {
         document.getElementById("okul").value = savedData.meta.okul || "";
         document.getElementById("ad").value = savedData.meta.ad || "";
+        document.getElementById("saat").value = savedData.meta.saat || "";
       }
     };
   </script>
