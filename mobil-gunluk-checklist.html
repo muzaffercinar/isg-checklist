@@ -111,6 +111,7 @@
           <select id="okul">
             <option value="">Lütfen listeden seçiniz...</option>
             <optgroup label="✨ KARABURUN KURUMLARI">
+              <option>Karaburun İlçe Milli Eğitim Müdürlüğü</option>
               <option>Karaburun Anaokulu</option>
               <option>Mordoğan SNÜ Anaokulu</option>
               <option>Karaburun İlkokulu</option>
@@ -124,6 +125,7 @@
               <option>Karaburun Öğr. Evi ve ASO</option>
             </optgroup>
             <optgroup label="✨ GÜZELBAHÇE KURUMLARI">
+              <option>Güzelbahçe İlçe Milli Eğitim Müdürlüğü</option>
               <option>Güzelbahçe Halk Eğitimi Merkezi</option>
               <option>Güzelbahçe Anaokulu</option>
               <option>Vali Kazım Paşa İlkokulu</option>
@@ -131,6 +133,7 @@
               <option>Hakkı Oğuz Tabaoğlu İlkokulu</option>
               <option>Ali Bayırlar İlkokulu</option>
               <option>Mustafa-Saadet Alanyalıoğlu İlkokulu</option>
+              <option>Payamlı İlkokulu</option>
               <option>Vali Kazım Paşa Ortaokulu</option>
               <option>Namık Elal Ortaokulu</option>
               <option>Dr. Güngör Özbek Ortaokulu</option>
@@ -205,11 +208,10 @@
         setTimeout(() => el.textContent = "", 4000); 
     }
 
-    // Lisans Kontrolü ve Zorunlu Alanlar
     document.getElementById("okul").onchange = function() {
         if(this.value === "LOCKED") {
             message("⛔ LİSANS AÇIK DEĞİL! Diğer kurumlar için yetkilendirme gereklidir.");
-            this.value = ""; // Seçimi sıfırla
+            this.value = "";
         }
     };
 
@@ -218,7 +220,6 @@
         const okul = document.getElementById("okul").value;
         const ad = document.getElementById("ad").value.trim();
         const saat = document.getElementById("saat").value;
-
         if (!rol || !okul || !ad || !saat) {
             message("⚠️ Lütfen zorunlu alanları (*) doldurunuz!");
             return false;
@@ -330,7 +331,6 @@
         if(!validateForm()) return;
         const count = incrementCounter();
         const text = buildSummary(count);
-        const data = collect();
         if (navigator.share) {
             try {
                 await navigator.share({ title: "İSG Formu", text: text });
