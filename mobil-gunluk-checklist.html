@@ -59,7 +59,7 @@
           <span id="logoPlaceholder" style="font-size:0.6rem; color:#64748b;">Logo Seç</span>
         </div>
         <div style="flex:1;">
-          <label for="rol">Denetim Yapan Rol</label>
+          <label for="rol">Kontrol Eden Rol</label>
           <select id="rol">
             <option value="Isveren">İşveren/İşveren Vekili</option>
             <option value="Calisan">Çalışan</option>
@@ -86,7 +86,7 @@
             <option>2. Tur (Öğle/İkindi)</option>
           </select>
         </div>
-        <div><label for="ad">Ad Soyad</label><input id="ad" placeholder="Denetleyen Kişi" /></div>
+        <div><label for="ad">Kontrol Eden Ad Soyad</label><input id="ad" placeholder="Ad Soyad" /></div>
         <div><label for="saat">Saat</label><input id="saat" type="time" /></div>
       </div>
     </div>
@@ -193,10 +193,10 @@
       const warn = data.rows.filter(x => x.durum === "Gözlem").length;
       const actions = data.rows.filter(x => x.durum === "Uygun Değil" || x.durum === "Gözlem");
 
-      let text = `📋 *GÜNLÜK GÜVENLİK RAPORU*\n`;
+      let text = `📋 *GÜNLÜK GÜVENLİK KONTROL RAPORU*\n`;
       text += `--------------------------------\n`;
       text += `🏫 *Okul:* ${data.meta.okul || "-"}\n`;
-      text += `👤 *Denetleyen:* ${data.meta.ad || "-"}\n`;
+      text += `👤 *Kontrol Eden:* ${data.meta.ad || "-"}\n`;
       text += `🎭 *Rol:* ${data.meta.rol}\n`;
       text += `🔄 *Tur:* ${data.meta.tur}\n`;
       text += `📅 *Tarih:* ${data.meta.tarih} | *Saat:* ${data.meta.saat || "-"}\n`;
@@ -221,14 +221,14 @@
 
     document.getElementById("csvBtn").onclick = () => {
       const data = collect();
-      const head = ["Tarih", "Tur", "Rol", "Denetleyen", "Saat", "Okul", "Madde No", "Durum", "Not"];
+      const head = ["Tarih", "Tur", "Rol", "Kontrol Eden", "Saat", "Okul", "Madde No", "Durum", "Not"];
       const lines = [head.map(h => `"${h}"`).join(",")];
       data.rows.forEach(r => {
         lines.push([data.meta.tarih, data.meta.tur, data.meta.rol, data.meta.ad, data.meta.saat, data.meta.okul, r.id, r.durum, r.not].map(v => `"${v}"`).join(","));
       });
       const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
-      const a = document.createElement("a"); a.href = url; a.download = `ISG_Denetim_${data.meta.tarih}.csv`; a.click();
+      const a = document.createElement("a"); a.href = url; a.download = `Kontrol_Raporu_${data.meta.tarih}.csv`; a.click();
     };
 
     document.getElementById("saveBtn").onclick = () => { localStorage.setItem(key, JSON.stringify(collect())); message("Cihaza Kaydedildi."); };
@@ -237,7 +237,7 @@
       const text = buildSummary();
       const encoded = encodeURIComponent(text);
       document.getElementById("waLink").href = `https://wa.me/?text=${encoded}`;
-      document.getElementById("mailLink").href = `mailto:?subject=Günlük Güvenlik Raporu&body=${encoded}`;
+      document.getElementById("mailLink").href = `mailto:?subject=Günlük Güvenlik Kontrolü&body=${encoded}`;
       document.getElementById("shareSheet").style.display = "block";
     };
     document.getElementById("closeShare").onclick = () => document.getElementById("shareSheet").style.display = "none";
