@@ -18,10 +18,17 @@
     .card {
       background: var(--card); border: 1px solid var(--border); border-radius: 14px;
       padding: 14px; margin-bottom: 12px; box-shadow: 0 8px 20px rgba(15, 76, 129, 0.06);
+      position: relative;
     }
-    h1 { font-size: 1.2rem; margin: 0 0 8px; color: var(--primary); }
+    .counter-badge {
+      position: absolute; top: 14px; right: 14px;
+      background: var(--primary); color: #fff;
+      padding: 4px 10px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 700;
+      box-shadow: 0 4px 10px rgba(15, 76, 129, 0.2);
+    }
+    h1 { font-size: 1.2rem; margin: 0 0 8px; color: var(--primary); padding-right: 80px; }
     h2 { font-size: 1rem; margin: 4px 0 10px; color: #0f172a; }
-    .sub { color: var(--muted); font-size: 0.9rem; margin-top: 0; }
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
     label { display: block; font-size: 0.86rem; color: #334155; margin-bottom: 4px; font-weight: 600; }
     input, select, textarea, button { width: 100%; border: 1px solid #cbd5e1; border-radius: 10px; min-height: 44px; font-size: 1rem; padding: 10px; background: #fff; }
@@ -39,19 +46,22 @@
     .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 600; cursor: pointer; }
     .btn-ghost { background: #fff; color: #0f4c81; border: 1px solid #9fb7d7; font-weight: 600; cursor: pointer; }
-    .btn-send { background: #ff6a00; color: #ffffff; border: 2px solid #c2410c; font-weight: 800; box-shadow: 0 8px 18px rgba(255, 106, 0, 0.35); cursor: pointer; }
+    .btn-send { 
+      background: #ff6a00; color: #ffffff; border: 2px solid #c2410c; 
+      font-weight: 800; box-shadow: 0 8px 18px rgba(255, 106, 0, 0.35); 
+      cursor: pointer; margin-top: 10px;
+    }
     .sticky { position: sticky; bottom: 8px; z-index: 10; }
     .logo-box { width: 84px; height: 84px; border-radius: 12px; border: 1px solid #cbd5e1; background: #f8fbff; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-right: 10px;}
     .logo-box img { width: 100%; height: 100%; object-fit: contain; display: none; }
     .footer-note { margin: 18px 0 10px; font-size: 0.82rem; color: #334155; text-align: center; font-weight: 600; }
-    .share-sheet { margin-top: 10px; border: 1px solid #cbd5e1; border-radius: 12px; background: #f8fbff; padding: 10px; display: none; }
-    .share-link { display: block; text-align: center; text-decoration: none; color: #0f4c81; background: #fff; border: 1px solid #9fb7d7; border-radius: 10px; min-height: 42px; line-height: 42px; font-weight: 600; margin-bottom: 5px; }
     @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .btn-row { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
+      <div class="counter-badge">Toplam Rapor: <span id="reportCount">0</span></div>
       <h1>Mobil Günlük Güvenlik Checklisti</h1>
       <div style="display:flex; align-items:center;">
         <div class="logo-box" id="logoWrap">
@@ -100,12 +110,7 @@
         <button class="btn-ghost" id="copyBtn">Özeti Kopyala</button>
         <button class="btn-ghost" id="resetBtn">Sıfırla</button>
       </div>
-      <button class="btn-send" id="sendBtn" style="margin-top:10px;">Raporu Gönder (WhatsApp/Mail)</button>
-      <div class="share-sheet" id="shareSheet">
-        <a id="waLink" class="share-link" target="_blank">WhatsApp ile Paylaş</a>
-        <a id="mailLink" class="share-link">E-posta ile Gönder</a>
-        <button class="btn-ghost" id="closeShare">Kapat</button>
-      </div>
+      <button class="btn-send" id="sendBtn">Raporu Gönder (Tüm Seçenekler)</button>
       <p id="msg" style="font-size:0.85rem; color:var(--primary); text-align:center; margin-top:8px; font-weight:600;"></p>
     </div>
 
@@ -131,9 +136,23 @@
 
     const key = "isg_mobil_data_2026";
     const logoKey = "isg_app_logo";
+    const counterKey = "isg_report_counter";
 
     function todayIso() { const d = new Date(); return new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().slice(0, 10); }
     function message(t) { document.getElementById("msg").textContent = t; setTimeout(() => document.getElementById("msg").textContent = "", 3000); }
+
+    function updateCounterUI() {
+      const count = localStorage.getItem(counterKey) || 0;
+      document.getElementById("reportCount").textContent = count;
+    }
+
+    function incrementCounter() {
+      let count = parseInt(localStorage.getItem(counterKey) || 0);
+      count++;
+      localStorage.setItem(counterKey, count);
+      updateCounterUI();
+      return count;
+    }
 
     function renderList() {
       const area = document.getElementById("list-area");
@@ -185,7 +204,7 @@
       return { meta, rows };
     }
 
-    function buildSummary() {
+    function buildSummary(currentCount) {
       const data = collect();
       const total = data.rows.length;
       const ok = data.rows.filter(x => x.durum === "Uygun").length;
@@ -201,9 +220,7 @@
       text += `🔄 *Tur:* ${data.meta.tur}\n`;
       text += `📅 *Tarih:* ${data.meta.tarih} | *Saat:* ${data.meta.saat || "-"}\n`;
       text += `--------------------------------\n`;
-      text += `✅ *Uygun:* ${ok}/${total}\n`;
-      text += `⚠️ *Gözlem:* ${warn}\n`;
-      text += `❌ *Uygun Değil:* ${bad}\n`;
+      text += `✅ *Uygun:* ${ok}/${total} | ⚠️ *Gözlem:* ${warn} | ❌ *U.Değil:* ${bad}\n`;
       text += `--------------------------------\n`;
 
       if (actions.length > 0) {
@@ -216,8 +233,33 @@
       } else {
         text += `✨ *Tüm kontroller uygun görülmüştür.*`;
       }
+      
+      // CIHAZ SAYAÇ NOTU EKLEME
+      const totalCount = currentCount || localStorage.getItem(counterKey) || 0;
+      text += `\n--------------------------------\n`;
+      text += `📊 *[Sistem Notu: Bu cihazdan gönderilen toplam ${totalCount}. rapordur]*`;
+      
       return text;
     }
+
+    document.getElementById("sendBtn").onclick = async () => {
+        const count = incrementCounter(); // Gönderince sayacı artır
+        const text = buildSummary(count);
+        const data = collect();
+        const title = `${data.meta.okul} Güvenlik Raporu - ${data.meta.tarih}`;
+
+        if (navigator.share) {
+            try {
+                await navigator.share({ title: title, text: text });
+                message("Paylaşım menüsü açıldı.");
+            } catch (err) {
+                if (err.name !== "AbortError") message("Paylaşım sırasında bir hata oluştu.");
+            }
+        } else {
+            navigator.clipboard.writeText(text);
+            message("Tarayıcı paylaşımı desteklemiyor. Rapor kopyalandı!");
+        }
+    };
 
     document.getElementById("csvBtn").onclick = () => {
       const data = collect();
@@ -229,19 +271,35 @@
       const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a"); a.href = url; a.download = `Kontrol_Raporu_${data.meta.tarih}.csv`; a.click();
+      incrementCounter();
     };
 
-    document.getElementById("saveBtn").onclick = () => { localStorage.setItem(key, JSON.stringify(collect())); message("Cihaza Kaydedildi."); };
-    document.getElementById("copyBtn").onclick = () => { navigator.clipboard.writeText(buildSummary()); message("Özet kopyalandı."); };
-    document.getElementById("sendBtn").onclick = () => {
-      const text = buildSummary();
-      const encoded = encodeURIComponent(text);
-      document.getElementById("waLink").href = `https://wa.me/?text=${encoded}`;
-      document.getElementById("mailLink").href = `mailto:?subject=Günlük Güvenlik Kontrolü&body=${encoded}`;
-      document.getElementById("shareSheet").style.display = "block";
+    document.getElementById("saveBtn").onclick = () => { 
+        localStorage.setItem(key, JSON.stringify(collect())); 
+        incrementCounter();
+        message("Cihaza Kaydedildi."); 
     };
-    document.getElementById("closeShare").onclick = () => document.getElementById("shareSheet").style.display = "none";
-    document.getElementById("rol").onchange = applyRolePermissions;
+    
+    document.getElementById("copyBtn").onclick = () => { 
+        const count = incrementCounter();
+        const summary = buildSummary(count);
+        navigator.clipboard.writeText(summary).then(() => {
+            message("Özet kopyalandı.");
+        });
+    };
+
+    document.getElementById("resetBtn").onclick = function() {
+        if(confirm("Tüm formu sıfırlamak istiyor musunuz? (DİKKAT: TOPLAM SAYAÇ SIFIRLANMAZ)")) {
+            localStorage.removeItem(key);
+            document.getElementById("ad").value = "";
+            document.getElementById("saat").value = "";
+            document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
+            document.querySelectorAll('textarea').forEach(txt => txt.value = "");
+            document.getElementById("tarih").value = todayIso();
+            message("Form temizlendi.");
+            setTimeout(() => location.reload(), 800);
+        }
+    };
 
     document.getElementById("logoInput").onchange = (e) => {
       const reader = new FileReader();
@@ -253,13 +311,24 @@
       };
       reader.readAsDataURL(e.target.files[0]);
     };
-    document.getElementById("removeLogoBtn").onclick = () => { localStorage.removeItem(logoKey); location.reload(); };
+
+    document.getElementById("removeLogoBtn").onclick = () => { 
+        if(confirm("Logoyu silmek istiyor musunuz?")) {
+            localStorage.removeItem(logoKey); 
+            location.reload(); 
+        }
+    };
 
     window.onload = () => {
       renderList();
+      updateCounterUI();
       document.getElementById("tarih").value = todayIso();
       const savedLogo = localStorage.getItem(logoKey);
-      if(savedLogo) { document.getElementById("logoPreview").src = savedLogo; document.getElementById("logoPreview").style.display="block"; document.getElementById("logoPlaceholder").style.display="none"; }
+      if(savedLogo) { 
+          document.getElementById("logoPreview").src = savedLogo; 
+          document.getElementById("logoPreview").style.display="block"; 
+          document.getElementById("logoPlaceholder").style.display="none"; 
+      }
       const savedData = JSON.parse(localStorage.getItem(key));
       if(savedData) {
         document.getElementById("okul").value = savedData.meta.okul || "";
