@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mobil Günlük Güvenlik Checklisti</title>
+  <title>Kurum İçi Günlük Güvenlik Kontrol Formu</title>
   <style>
     :root {
       --bg: #f4f7fb; --card: #ffffff; --text: #1f2937; --muted: #6b7280;
@@ -14,59 +14,73 @@
       margin: 0; font-family: "Segoe UI", Arial, sans-serif; color: var(--text);
       background: linear-gradient(180deg, #eef3fb 0%, #f7f9fd 100%);
     }
-    .wrap { max-width: 860px; margin: 0 auto; padding: 14px; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 10px; }
     .card {
-      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
-      padding: 14px; margin-bottom: 12px; box-shadow: 0 8px 20px rgba(15, 76, 129, 0.06);
+      background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+      padding: 12px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(15, 76, 129, 0.05);
       position: relative;
     }
+    /* SAYAÇ ROZETİ */
     .counter-badge {
-      position: absolute; top: 14px; right: 14px;
-      background: var(--primary); color: #fff;
-      padding: 4px 10px; border-radius: 20px;
-      font-size: 0.75rem; font-weight: 700;
-      box-shadow: 0 4px 10px rgba(15, 76, 129, 0.2);
+      position: absolute; top: -8px; right: 10px;
+      background: #e11d48; color: #fff;
+      padding: 2px 10px; border-radius: 12px;
+      font-size: 0.7rem; font-weight: 800;
+      box-shadow: 0 4px 8px rgba(225, 29, 72, 0.3);
+      z-index: 5;
     }
-    h1 { font-size: 1.2rem; margin: 0 0 8px; color: var(--primary); padding-right: 80px; }
-    h2 { font-size: 1rem; margin: 4px 0 10px; color: #0f172a; }
-    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    label { display: block; font-size: 0.86rem; color: #334155; margin-bottom: 4px; font-weight: 600; }
-    input, select, textarea, button { width: 100%; border: 1px solid #cbd5e1; border-radius: 10px; min-height: 44px; font-size: 1rem; padding: 10px; background: #fff; }
-    textarea { min-height: 70px; resize: vertical; }
-    .item { border: 1px dashed #c7d2e5; border-radius: 12px; padding: 10px; margin-bottom: 10px; background: #fbfdff; }
-    .item.passive { background: #f1f5f9; border-style: solid; opacity: 0.85; }
-    .item-title { font-size: 0.94rem; font-weight: 600; margin: 0 0 8px; }
-    .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 8px; }
-    .status label { margin: 0; font-weight: 500; font-size: 0.82rem; text-align: center; border: 1px solid #cbd5e1; border-radius: 9px; padding: 7px 4px; background: #fff; cursor: pointer;}
+    h1 { font-size: 1.05rem; margin: 0 0 12px; color: var(--primary); line-height: 1.3; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; }
+    h2 { font-size: 0.95rem; margin: 0 0 10px; color: #0f172a; font-weight: 700; }
+    
+    /* LOGO VE ROL ALANI YAN YANA */
+    .header-flex { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .logo-box { 
+      width: 60px; height: 60px; min-width: 60px;
+      border-radius: 8px; border: 1px dashed #cbd5e1; 
+      background: #f8fbff; display: flex; align-items: center; justify-content: center; 
+      overflow: hidden; cursor: pointer;
+    }
+    .logo-box img { width: 100%; height: 100%; object-fit: contain; }
+    .logo-box span { font-size: 0.55rem; color: #64748b; text-align: center; }
+    
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    label { display: block; font-size: 0.8rem; color: #475569; margin-bottom: 3px; font-weight: 600; }
+    input, select, textarea, button { width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; min-height: 38px; font-size: 0.95rem; padding: 8px; background: #fff; }
+    textarea { min-height: 60px; }
+
+    .item { border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; margin-bottom: 8px; background: #fff; }
+    .item.passive { background: #f1f5f9; opacity: 0.7; }
+    .item-title { font-size: 0.9rem; font-weight: 600; margin: 0 0 8px; color: #1e293b; }
+    
+    .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-bottom: 8px; }
+    .status label { margin: 0; font-size: 0.75rem; text-align: center; border: 1px solid #e2e8f0; border-radius: 6px; padding: 6px 2px; background: #f8fafc; cursor: pointer; color: #64748b;}
     .status input { display: none; }
-    .status input:checked + span { display: inline-block; width: 100%; color: #fff; border-radius: 7px; padding: 6px 2px; }
+    .status input:checked + span { display: inline-block; width: 100%; color: #fff; border-radius: 4px; padding: 4px 2px; font-weight: 700; }
     .ok input:checked + span { background: var(--ok); }
     .warn input:checked + span { background: var(--warn); }
     .bad input:checked + span { background: var(--bad); }
-    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
     .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 600; cursor: pointer; }
-    .btn-ghost { background: #fff; color: #0f4c81; border: 1px solid #9fb7d7; font-weight: 600; cursor: pointer; }
-    .btn-send { 
-      background: #ff6a00; color: #ffffff; border: 2px solid #c2410c; 
-      font-weight: 800; box-shadow: 0 8px 18px rgba(255, 106, 0, 0.35); 
-      cursor: pointer; margin-top: 10px;
-    }
-    .sticky { position: sticky; bottom: 8px; z-index: 10; }
-    .logo-box { width: 84px; height: 84px; border-radius: 12px; border: 1px solid #cbd5e1; background: #f8fbff; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-right: 10px;}
-    .logo-box img { width: 100%; height: 100%; object-fit: contain; display: none; }
-    .footer-note { margin: 18px 0 10px; font-size: 0.82rem; color: #334155; text-align: center; font-weight: 600; }
-    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .btn-row { grid-template-columns: 1fr; } }
+    .btn-ghost { background: #fff; color: #0f4c81; border: 1px solid #cbd5e1; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
+    .btn-send { background: #ea580c; color: #fff; border: 0; font-weight: 700; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2); cursor: pointer; margin-top: 8px; }
+    
+    .sticky { position: sticky; bottom: 8px; z-index: 10; padding: 10px; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); }
+    .footer-note { margin: 15px 0; font-size: 0.75rem; color: #64748b; text-align: center; font-weight: 700; letter-spacing: 0.5px; }
+
+    @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
-      <div class="counter-badge">Toplam Rapor: <span id="reportCount">0</span></div>
-      <h1>Mobil Günlük Güvenlik Checklisti</h1>
-      <div style="display:flex; align-items:center;">
-        <div class="logo-box" id="logoWrap">
-          <img id="logoPreview" alt="Logo" />
-          <span id="logoPlaceholder" style="font-size:0.6rem; color:#64748b;">Logo Seç</span>
+      <div class="counter-badge">TOPLAM: <span id="reportCount">0</span></div>
+      <h1>Kurum İçi Günlük Güvenlik Kontrol Formu</h1>
+      
+      <div class="header-flex">
+        <div class="logo-box" onclick="document.getElementById('logoInput').click()">
+          <img id="logoPreview" style="display:none;" />
+          <span id="logoPlaceholder">LOGO<br>YÜKLE</span>
         </div>
         <div style="flex:1;">
           <label for="rol">Kontrol Eden Rol</label>
@@ -75,29 +89,29 @@
             <option value="Calisan">Çalışan</option>
             <option value="Nobetci">Nöbetçi Öğretmen</option>
           </select>
+          <div style="margin-top:5px; display:flex; gap:8px;">
+             <span style="font-size:0.7rem; color:var(--primary); cursor:pointer; text-decoration:underline;" id="removeLogoBtn">Logoyu Sil</span>
+          </div>
         </div>
       </div>
       <input id="logoInput" type="file" accept="image/*" style="display:none;" />
-      <div style="margin-top:10px; display:flex; gap:5px;">
-        <button class="btn-ghost" style="min-height:30px; font-size:0.75rem;" onclick="document.getElementById('logoInput').click()">Logo Yükle</button>
-        <button class="btn-ghost" style="min-height:30px; font-size:0.75rem;" id="removeLogoBtn">Logoyu Sil</button>
-      </div>
     </div>
 
     <div class="card">
       <h2>Genel Bilgiler</h2>
       <div class="grid">
-        <div><label for="okul">Okul Adı</label><input id="okul" placeholder="Örn: Atatürk İlkokulu" /></div>
+        <div><label for="okul">Kurum Adı</label><input id="okul" placeholder="Okul/Kurum Adı" /></div>
         <div><label for="tarih">Tarih</label><input id="tarih" type="date" /></div>
         <div>
           <label for="tur">Kontrol Turu</label>
           <select id="tur">
-            <option>1. Tur (Ders Başlangıcı)</option>
-            <option>2. Tur (Öğle/İkindi)</option>
+            <option>1. Tur (Sabah)</option>
+            <option>2. Tur (Öğle)</option>
+            <option>3. Tur (Akşam)</option>
           </select>
         </div>
-        <div><label for="ad">Kontrol Eden Ad Soyad</label><input id="ad" placeholder="Ad Soyad" /></div>
-        <div><label for="saat">Saat</label><input id="saat" type="time" /></div>
+        <div><label for="ad">Ad Soyad</label><input id="ad" placeholder="Kontrol Eden" /></div>
+        <div style="grid-column: span 1;"><label for="saat">Saat</label><input id="saat" type="time" /></div>
       </div>
     </div>
 
@@ -106,15 +120,15 @@
     <div class="card sticky">
       <div class="btn-row">
         <button class="btn-primary" id="saveBtn">Kaydet</button>
-        <button class="btn-ghost" id="csvBtn">Excel/CSV İndir</button>
-        <button class="btn-ghost" id="copyBtn">Özeti Kopyala</button>
-        <button class="btn-ghost" id="resetBtn">Sıfırla</button>
+        <button class="btn-ghost" id="copyBtn">Kopyala</button>
+        <button class="btn-ghost" id="csvBtn">Excel/CSV</button>
+        <button class="btn-ghost" id="resetBtn" style="color:#b91c1c;">Sıfırla</button>
       </div>
-      <button class="btn-send" id="sendBtn">Raporu Gönder (Tüm Seçenekler)</button>
-      <p id="msg" style="font-size:0.85rem; color:var(--primary); text-align:center; margin-top:8px; font-weight:600;"></p>
+      <button class="btn-send" id="sendBtn">RAPORU PAYLAŞ / GÖNDER</button>
+      <p id="msg" style="font-size:0.8rem; color:var(--primary); text-align:center; margin-top:6px; font-weight:700; height:15px;"></p>
     </div>
 
-    <p class="footer-note">BAŞÖĞRETMEN MUZAFFER ÇINAR - İSG UZMANI & TSE TETKİK GÖREVLİSİ</p>
+    <p class="footer-note">BAŞÖĞRETMEN MUZAFFER ÇINAR<br>İSG UZMANI & TSE TETKİK GÖREVLİSİ</p>
   </div>
 
   <script>
@@ -139,7 +153,7 @@
     const counterKey = "isg_report_counter";
 
     function todayIso() { const d = new Date(); return new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().slice(0, 10); }
-    function message(t) { document.getElementById("msg").textContent = t; setTimeout(() => document.getElementById("msg").textContent = "", 3000); }
+    function message(t) { document.getElementById("msg").textContent = t; setTimeout(() => document.getElementById("msg").textContent = "", 2500); }
 
     function updateCounterUI() {
       const count = localStorage.getItem(counterKey) || 0;
@@ -166,9 +180,9 @@
           <div class="status">
             <label class="ok"><input type="radio" name="st_${item.id}" value="Uygun"><span>Uygun</span></label>
             <label class="warn"><input type="radio" name="st_${item.id}" value="Gözlem"><span>Gözlem</span></label>
-            <label class="bad"><input type="radio" name="st_${item.id}" value="Uygun Değil"><span>Uygun Değil</span></label>
+            <label class="bad"><input type="radio" name="st_${item.id}" value="Uygun Değil"><span>U. Değil</span></label>
           </div>
-          <textarea id="not_${item.id}" placeholder="Varsa aksiyon notunuzu yazın..."></textarea>
+          <textarea id="not_${item.id}" placeholder="Not ekle..."></textarea>
         `;
         area.appendChild(div);
       });
@@ -212,66 +226,52 @@
       const warn = data.rows.filter(x => x.durum === "Gözlem").length;
       const actions = data.rows.filter(x => x.durum === "Uygun Değil" || x.durum === "Gözlem");
 
-      let text = `📋 *GÜNLÜK GÜVENLİK KONTROL RAPORU*\n`;
+      let text = `📋 *GÜNLÜK GÜVENLİK KONTROL FORMU*\n`;
       text += `--------------------------------\n`;
-      text += `🏫 *Okul:* ${data.meta.okul || "-"}\n`;
-      text += `👤 *Kontrol Eden:* ${data.meta.ad || "-"}\n`;
+      text += `🏫 *Kurum:* ${data.meta.okul || "-"}\n`;
+      text += `👤 *Görevli:* ${data.meta.ad || "-"}\n`;
       text += `🎭 *Rol:* ${data.meta.rol}\n`;
       text += `🔄 *Tur:* ${data.meta.tur}\n`;
       text += `📅 *Tarih:* ${data.meta.tarih} | *Saat:* ${data.meta.saat || "-"}\n`;
       text += `--------------------------------\n`;
-      text += `✅ *Uygun:* ${ok}/${total} | ⚠️ *Gözlem:* ${warn} | ❌ *U.Değil:* ${bad}\n`;
+      text += `✅ Uygun: ${ok}/${total} | ⚠️ Gözlem: ${warn} | ❌ U.Değil: ${bad}\n`;
       text += `--------------------------------\n`;
 
       if (actions.length > 0) {
         text += `🚀 *AKSİYON GEREKTİRENLER:*\n`;
         actions.forEach(item => {
           text += `\n📍 *${item.id}:* ${item.madde}\n`;
-          text += `   - *Durum:* ${item.durum}\n`;
-          text += `   - *Not:* ${item.not || "Açıklama girilmedi."}\n`;
+          text += `   - Durum: ${item.durum}\n`;
+          text += `   - Not: ${item.not || "Açıklama yok."}\n`;
         });
       } else {
-        text += `✨ *Tüm kontroller uygun görülmüştür.*`;
+        text += `✨ Tüm kontroller uygun görülmüştür.`;
       }
       
-      // CIHAZ SAYAÇ NOTU EKLEME
       const totalCount = currentCount || localStorage.getItem(counterKey) || 0;
       text += `\n--------------------------------\n`;
-      text += `📊 *[Sistem Notu: Bu cihazdan gönderilen toplam ${totalCount}. rapordur]*`;
+      text += `📊 [Sistem Notu: Bu cihazdan gönderilen toplam ${totalCount}. rapordur]`;
       
       return text;
     }
 
     document.getElementById("sendBtn").onclick = async () => {
-        const count = incrementCounter(); // Gönderince sayacı artır
+        const count = incrementCounter();
         const text = buildSummary(count);
         const data = collect();
-        const title = `${data.meta.okul} Güvenlik Raporu - ${data.meta.tarih}`;
+        const title = `${data.meta.okul} Kontrol Formu - ${data.meta.tarih}`;
 
         if (navigator.share) {
             try {
                 await navigator.share({ title: title, text: text });
                 message("Paylaşım menüsü açıldı.");
             } catch (err) {
-                if (err.name !== "AbortError") message("Paylaşım sırasında bir hata oluştu.");
+                if (err.name !== "AbortError") message("Paylaşım hatası.");
             }
         } else {
             navigator.clipboard.writeText(text);
-            message("Tarayıcı paylaşımı desteklemiyor. Rapor kopyalandı!");
+            message("Paylaşım yok. Rapor kopyalandı!");
         }
-    };
-
-    document.getElementById("csvBtn").onclick = () => {
-      const data = collect();
-      const head = ["Tarih", "Tur", "Rol", "Kontrol Eden", "Saat", "Okul", "Madde No", "Durum", "Not"];
-      const lines = [head.map(h => `"${h}"`).join(",")];
-      data.rows.forEach(r => {
-        lines.push([data.meta.tarih, data.meta.tur, data.meta.rol, data.meta.ad, data.meta.saat, data.meta.okul, r.id, r.durum, r.not].map(v => `"${v}"`).join(","));
-      });
-      const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a"); a.href = url; a.download = `Kontrol_Raporu_${data.meta.tarih}.csv`; a.click();
-      incrementCounter();
     };
 
     document.getElementById("saveBtn").onclick = () => { 
@@ -284,12 +284,24 @@
         const count = incrementCounter();
         const summary = buildSummary(count);
         navigator.clipboard.writeText(summary).then(() => {
-            message("Özet kopyalandı.");
+            message("Kopyalandı.");
         });
     };
 
+    document.getElementById("csvBtn").onclick = () => {
+      const data = collect();
+      const head = ["Tarih", "Tur", "Rol", "Ad Soyad", "Saat", "Kurum", "Madde", "Durum", "Not"];
+      const lines = [head.map(h => `"${h}"`).join(",")];
+      data.rows.forEach(r => {
+        lines.push([data.meta.tarih, data.meta.tur, data.meta.rol, data.meta.ad, data.meta.saat, data.meta.okul, r.id, r.durum, r.not].map(v => `"${v}"`).join(","));
+      });
+      const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `Kontrol_${data.meta.tarih}.csv`; a.click();
+      incrementCounter();
+    };
+
     document.getElementById("resetBtn").onclick = function() {
-        if(confirm("Tüm formu sıfırlamak istiyor musunuz? (DİKKAT: TOPLAM SAYAÇ SIFIRLANMAZ)")) {
+        if(confirm("Tüm formu sıfırlamak istiyor musunuz? (SAYAÇ SIFIRLANMAZ)")) {
             localStorage.removeItem(key);
             document.getElementById("ad").value = "";
             document.getElementById("saat").value = "";
@@ -297,7 +309,7 @@
             document.querySelectorAll('textarea').forEach(txt => txt.value = "");
             document.getElementById("tarih").value = todayIso();
             message("Form temizlendi.");
-            setTimeout(() => location.reload(), 800);
+            setTimeout(() => location.reload(), 500);
         }
     };
 
@@ -318,6 +330,8 @@
             location.reload(); 
         }
     };
+
+    document.getElementById("rol").onchange = applyRolePermissions;
 
     window.onload = () => {
       renderList();
