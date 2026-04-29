@@ -13,8 +13,33 @@
     body {
       margin: 0; font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; color: var(--text);
       background: linear-gradient(180deg, #eef3fb 0%, #f7f9fd 100%);
+      min-height: 100vh;
     }
-    .wrap { max-width: 860px; margin: 0 auto; padding: 10px; }
+
+    /* ŞİFRE EKRANI STİLLERİ */
+    #login-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--primary); display: flex; align-items: center; justify-content: center;
+      z-index: 9999; padding: 20px;
+    }
+    .login-box {
+      background: white; padding: 30px; border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2); width: 100%; max-width: 350px; text-align: center;
+    }
+    .login-box h2 { font-size: 1rem; color: var(--primary); margin-bottom: 10px; font-weight: 800; text-transform: uppercase; }
+    .login-box p { font-size: 0.8rem; color: var(--muted); margin-bottom: 20px; font-weight: 600; }
+    .login-box input {
+      width: 100%; padding: 12px; border: 2px solid #e2e8f0; border-radius: 10px;
+      margin-bottom: 15px; font-size: 1rem; text-align: center;
+    }
+    .login-box button {
+      width: 100%; padding: 12px; background: #ea580c; color: white;
+      border: none; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 1rem;
+    }
+
+    /* ANA İÇERIK (BAŞLANGIÇTA GİZLİ) */
+    .wrap { max-width: 860px; margin: 0 auto; padding: 10px; display: none; }
+
     .card {
       background: var(--card); border: 1px solid var(--border); border-radius: 12px;
       padding: 12px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(15, 76, 129, 0.05);
@@ -68,16 +93,27 @@
     .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 700; cursor: pointer; border-radius: 8px; }
     .btn-ghost { background: #fff; color: var(--primary); border: 1px solid #cbd5e1; font-weight: 700; cursor: pointer; font-size: 0.85rem; border-radius: 8px; }
-    .btn-send { background: #ea580c; color: #fff; border: 0; font-weight: 800; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3); cursor: pointer; margin-top: 10px; border-radius: 8px; font-size: 1rem; }
+    .btn-send { background: #ea580c; color: #fff; border: 0; font-weight: 800; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3); cursor: pointer; margin-top: 10px; border-radius: 8px; font-size: 1rem; height: 48px; width: 100%; }
     
-    .sticky { position: sticky; bottom: 8px; z-index: 10; padding: 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-top: 2px solid var(--primary); }
+    .sticky { position: sticky; bottom: 8px; z-index: 10; padding: 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-top: 2px solid var(--primary); border-radius: 12px; }
     .footer-note { margin: 20px 0; font-size: 0.75rem; color: #64748b; text-align: center; font-weight: 800; line-height: 1.5; text-transform: uppercase; }
 
     @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
- <div class="wrap" id="main-content" style="display:none;">
+
+  <div id="login-overlay">
+    <div class="login-box">
+      <h2>OKUL GÜVENLİĞİ GÜNLÜK TAKİP SİSTEMİ</h2>
+      <p>GİRİŞ</p>
+      <input type="password" id="passInput" placeholder="Şifre Giriniz" onkeypress="if(event.key==='Enter') checkPassword()">
+      <button onclick="checkPassword()">SİSTEMİ AÇ</button>
+      <p id="error-msg" style="color:#b91c1c; font-size:0.8rem; margin-top:10px; display:none; font-weight:bold;">⚠️ Hatalı Şifre!</p>
+    </div>
+  </div>
+
+  <div class="wrap" id="main-content">
     <div class="card">
       <div class="counter-badge">TOPLAM: <span id="reportCount">0</span></div>
       <h1>Kurum İçi Günlük Güvenlik Kontrol Formu</h1>
@@ -180,6 +216,18 @@
   </div>
 
   <script>
+    // ŞİFRE FONKSİYONU
+    function checkPassword() {
+      const p = document.getElementById("passInput").value;
+      if(p === "isg2026Guvenlik") {
+        document.getElementById("login-overlay").remove();
+        document.getElementById("main-content").style.display = "block";
+      } else {
+        document.getElementById("error-msg").style.display = "block";
+        document.getElementById("passInput").value = "";
+      }
+    }
+
     const checklist = [
       { id: "A1", text: "Koridor ve merdivenlerde yığılma kontrolü yapıldı" },
       { id: "A2", text: "Teneffüste riskli öğrenci davranışları gözlenmedi" },
@@ -267,8 +315,10 @@
       checklist.forEach(item => {
         const isPassive = passiveIds.includes(item.id);
         const box = document.getElementById(`item_${item.id}`);
-        box.classList.toggle("passive", isPassive);
-        box.querySelectorAll("input, textarea").forEach(el => el.disabled = isPassive);
+        if(box) {
+          box.classList.toggle("passive", isPassive);
+          box.querySelectorAll("input, textarea").forEach(el => el.disabled = isPassive);
+        }
       });
     }
 
@@ -429,14 +479,6 @@
         applyRolePermissions();
       }
     };
-    function checkPassword() {
-  if(document.getElementById("passInput").value === "isg2026Guvenlik") {
-    document.getElementById("login-overlay").remove();
-    document.getElementById("main-content").style.display = "block";
-  } else {
-    alert("Şifre Hatalı!");
-  }
-}
   </script>
 </body>
 </html>
