@@ -429,6 +429,14 @@
         applyRolePermissions();
       }
     };
+    function checkPassword() {
+  if(document.getElementById("passInput").value === "isg2026Guvenlik") {
+    document.getElementById("login-overlay").remove();
+    document.getElementById("main-content").style.display = "block";
+  } else {
+    alert("Şifre Hatalı!");
+  }
+}
   </script>
 </body>
 </html>
