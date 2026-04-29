@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kurum İçi Günlük Güvenlik Kontrol Formu</title>
+  <title>İSG Kontrol Formu</title>
   <style>
     :root {
       --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b;
@@ -12,105 +12,87 @@
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
-      margin: 0; font-family: "Inter", system-ui, -apple-system, sans-serif; color: var(--text);
-      background: radial-gradient(circle at top, #f1f5f9 0%, #e2e8f0 100%);
-      line-height: 1.5;
+      margin: 0; font-family: "Inter", system-ui, sans-serif; color: var(--text);
+      background: #f1f5f9; line-height: 1.5;
     }
-    .wrap { max-width: 860px; margin: 0 auto; padding: 15px; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 12px; }
     
-    /* PREMIUM BAŞLIK ALANI */
     .header-card {
-      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-      padding: 24px 16px; margin-bottom: 12px; box-shadow: 0 10px 25px rgba(15, 76, 129, 0.08);
-      position: relative; overflow: hidden;
+      background: var(--card); border-radius: 16px;
+      padding: 20px 16px; margin-bottom: 12px; 
+      box-shadow: 0 10px 25px rgba(15, 76, 129, 0.05);
+      text-align: center; border: 1px solid var(--border);
     }
-    .header-card::before {
-      content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-      background: linear-gradient(90deg, var(--primary), var(--accent));
-    }
-    .header-title {
-      text-align: center; margin-bottom: 20px;
+    .report-no {
+      display: inline-block; background: #f1f5f9; color: var(--primary);
+      padding: 2px 10px; border-radius: 12px; font-size: 0.65rem;
+      font-weight: 800; margin-bottom: 8px; border: 1px solid var(--border);
     }
     h1 { 
-      font-size: 1.2rem; margin: 0; color: var(--primary); 
-      letter-spacing: 0.5px; text-transform: uppercase; font-weight: 900;
-      display: inline-block; position: relative;
+      font-size: 1.1rem; margin: 0; color: var(--primary); 
+      letter-spacing: 0.3px; text-transform: uppercase; font-weight: 800;
     }
-    .title-underline {
-      width: 60px; height: 3px; background: var(--accent); margin: 8px auto 0; border-radius: 2px;
-    }
-
-    .counter-badge {
-      position: absolute; top: 12px; right: 12px;
-      background: var(--primary); color: #fff;
-      padding: 4px 12px; border-radius: 20px;
-      font-size: 0.7rem; font-weight: 700;
-      box-shadow: 0 4px 10px rgba(15, 76, 129, 0.2);
+    .title-line {
+      width: 40px; height: 3px; background: var(--accent); margin: 10px auto 0; border-radius: 2px;
     }
 
     .card {
       background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 16px; margin-bottom: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      padding: 16px; margin-bottom: 12px;
     }
-    h2 { font-size: 0.95rem; margin: 0 0 12px; color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 8px; }
-    h2::before { content: ""; width: 4px; height: 16px; background: var(--accent); border-radius: 2px; }
+    h2 { font-size: 0.9rem; margin: 0 0 12px; color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 8px; }
+    h2::before { content: ""; width: 3px; height: 14px; background: var(--accent); border-radius: 2px; }
     
-    .header-flex { display: flex; align-items: center; gap: 16px; justify-content: center; }
+    .header-flex { display: flex; align-items: center; gap: 12px; margin-top: 15px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
     .logo-box { 
-      width: 70px; height: 70px; min-width: 70px;
-      border-radius: 12px; border: 2px dashed #cbd5e1; 
+      width: 64px; height: 64px; min-width: 64px;
+      border-radius: 10px; border: 2px dashed #cbd5e1; 
       background: #f8fafc; display: flex; align-items: center; justify-content: center; 
-      overflow: hidden; cursor: pointer; transition: all 0.3s;
+      overflow: hidden; cursor: pointer;
     }
-    .logo-box:hover { border-color: var(--primary); background: #fff; }
     .logo-box img { width: 100%; height: 100%; object-fit: contain; }
-    .logo-box span { font-size: 0.6rem; color: #64748b; text-align: center; font-weight: 700; line-height: 1.2; }
+    .logo-box span { font-size: 0.55rem; color: #64748b; text-align: center; font-weight: 700; }
     
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    label { display: block; font-size: 0.75rem; color: #64748b; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
+    label { display: block; font-size: 0.7rem; color: #64748b; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
     .required::after { content: " *"; color: var(--bad); }
     
     select, input, textarea { 
-      width: 100%; border: 1px solid #d1d5db; border-radius: 8px; min-height: 44px; 
-      font-size: 0.9rem; padding: 10px 14px; background: #fff; color: var(--text);
-      transition: border 0.2s, box-shadow 0.2s;
+      width: 100%; border: 1px solid #d1d5db; border-radius: 8px; min-height: 40px; 
+      font-size: 0.9rem; padding: 8px 12px; background: #fff; color: var(--text);
     }
-    select:focus, input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 4px rgba(15, 76, 129, 0.1); }
+    select:focus, input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.1); }
     
     select optgroup { font-style: normal; font-weight: 700; color: var(--primary); background: #f8fafc; }
     
-    .item { border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; margin-bottom: 10px; background: #fff; transition: transform 0.2s; }
-    .item:hover { transform: translateY(-2px); box-shadow: 0 6px 15px rgba(0,0,0,0.05); }
-    .item.passive { background: #f1f5f9; opacity: 0.5; pointer-events: none; border-style: dashed; }
-    .item-title { font-size: 0.9rem; font-weight: 700; margin: 0 0 12px; color: #334155; }
+    .item { border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin-bottom: 10px; background: #fff; }
+    .item.passive { background: #f1f5f9; opacity: 0.5; pointer-events: none; }
+    .item-title { font-size: 0.85rem; font-weight: 700; margin: 0 0 10px; color: #334155; line-height: 1.4; }
     
-    .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 10px; }
     .status label { 
-        margin: 0; font-size: 0.75rem; text-align: center; border: 1px solid #e2e8f0; 
-        border-radius: 8px; padding: 10px 4px; background: #fff; cursor: pointer; 
-        color: #94a3b8; transition: all 0.2s; font-weight: 700;
+        margin: 0; font-size: 0.7rem; text-align: center; border: 1px solid #e2e8f0; 
+        border-radius: 6px; padding: 8px 2px; background: #fff; cursor: pointer; 
+        color: #94a3b8; font-weight: 700;
     }
     .status input { display: none; }
-    .status input:checked + span { display: inline-block; width: 100%; color: #fff; border-radius: 4px; padding: 2px; }
-    .ok input:checked + label { border-color: var(--ok); background: #ecfdf5; color: var(--ok); box-shadow: 0 0 0 1px var(--ok); }
-    .warn input:checked + label { border-color: var(--warn); background: #fffbeb; color: var(--warn); box-shadow: 0 0 0 1px var(--warn); }
-    .bad input:checked + label { border-color: var(--bad); background: #fef2f2; color: var(--bad); box-shadow: 0 0 0 1px var(--bad); }
+    .ok input:checked + label { border-color: var(--ok); background: #ecfdf5; color: var(--ok); }
+    .warn input:checked + label { border-color: var(--warn); background: #fffbeb; color: var(--warn); }
+    .bad input:checked + label { border-color: var(--bad); background: #fef2f2; color: var(--bad); }
 
-    .btn-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 10px; }
-    .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 700; cursor: pointer; border-radius: 10px; min-height: 48px; transition: 0.3s; }
-    .btn-ghost { background: #fff; color: var(--primary); border: 1px solid #d1d5db; font-weight: 700; cursor: pointer; font-size: 0.85rem; border-radius: 10px; min-height: 48px; }
-    .btn-primary:active, .btn-ghost:active { transform: scale(0.98); }
+    .btn-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 8px; }
+    .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 700; cursor: pointer; border-radius: 8px; min-height: 44px; }
+    .btn-ghost { background: #fff; color: var(--primary); border: 1px solid #d1d5db; font-weight: 700; cursor: pointer; font-size: 0.8rem; border-radius: 8px; min-height: 44px; }
     
     .btn-send { 
       width: 100%; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); 
-      color: #fff; border: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;
-      box-shadow: 0 6px 20px rgba(234, 88, 12, 0.3); cursor: pointer; 
-      border-radius: 12px; font-size: 1rem; min-height: 56px; display: block; transition: 0.3s;
+      color: #fff; border: 0; font-weight: 800; text-transform: uppercase;
+      box-shadow: 0 4px 15px rgba(234, 88, 12, 0.2); cursor: pointer; 
+      border-radius: 10px; font-size: 0.95rem; min-height: 52px; display: block;
     }
-    .btn-send:hover { box-shadow: 0 8px 25px rgba(234, 88, 12, 0.4); filter: brightness(1.1); }
     
-    .sticky { position: sticky; bottom: 12px; z-index: 10; padding: 16px; background: rgba(255,255,255,0.9); backdrop-filter: blur(12px); border-radius: 16px; border: 1px solid rgba(15, 76, 129, 0.15); box-shadow: 0 -10px 30px rgba(0,0,0,0.05); }
-    .footer-note { margin: 30px 0; font-size: 0.7rem; color: #94a3b8; text-align: center; font-weight: 800; line-height: 1.6; text-transform: uppercase; letter-spacing: 1px; }
+    .sticky { position: sticky; bottom: 10px; z-index: 10; padding: 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 14px; border: 1px solid rgba(15, 76, 129, 0.1); box-shadow: 0 -5px 20px rgba(0,0,0,0.05); }
+    .footer-note { margin: 25px 0; font-size: 0.65rem; color: #94a3b8; text-align: center; font-weight: 800; line-height: 1.6; text-transform: uppercase; letter-spacing: 0.5px; }
 
     @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
   </style>
@@ -118,28 +100,24 @@
 <body>
   <div class="wrap">
     <div class="header-card">
-      <div class="counter-badge">RAPOR NO: <span id="reportCount">0</span></div>
-      <div class="header-title">
-        <h1>Kurum İçi Günlük Güvenlik Kontrol Formu</h1>
-        <div class="title-underline"></div>
-      </div>
+      <div class="report-no">RAPOR NO: <span id="reportCount">0</span></div>
+      <h1>Günlük Güvenlik Kontrol Formu</h1>
+      <div class="title-line"></div>
       
       <div class="header-flex">
         <div class="logo-box" onclick="document.getElementById('logoInput').click()">
           <img id="logoPreview" style="display:none;" />
-          <span id="logoPlaceholder">KURUM LOGO<br>YÜKLE</span>
+          <span id="logoPlaceholder">LOGO<br>YÜKLE</span>
         </div>
-        <div style="flex:1;">
-          <label for="rol" class="required">Kontrol Eden Yetki / Rol</label>
+        <div style="flex:1; text-align: left;">
+          <label for="rol" class="required">Yetki / Rol</label>
           <select id="rol">
-            <option value="">Seçim Yapınız...</option>
+            <option value="">Seçiniz...</option>
             <option value="Isveren">İşveren / İşveren Vekili</option>
             <option value="Calisan">Çalışan Temsilcisi</option>
             <option value="Nobetci">Nöbetçi Öğretmen</option>
           </select>
-          <div style="margin-top:6px; text-align: right;">
-             <span style="font-size:0.65rem; color:var(--primary); cursor:pointer; text-decoration:none; font-weight:800; opacity: 0.7;" id="removeLogoBtn">✖ Logoyu Kaldır</span>
-          </div>
+          <span style="font-size:0.6rem; color:var(--bad); cursor:pointer; font-weight:700; margin-top:4px; display:block;" id="removeLogoBtn">✖ Logoyu Kaldır</span>
         </div>
       </div>
       <input id="logoInput" type="file" accept="image/*" style="display:none;" />
@@ -149,10 +127,10 @@
       <h2>Genel Bilgiler</h2>
       <div class="grid">
         <div style="grid-column: 1 / -1;">
-          <label for="okul" class="required">Denetlenen Resmi Kurum</label>
+          <label for="okul" class="required">İç Kontrol / Resmi Kurum</label>
           <select id="okul">
-            <option value="">Lütfen kurum listesini açın...</option>
-            <optgroup label="🏛️ KARABURUN KURUMLARI">
+            <option value="">Kurum seçiniz...</option>
+            <optgroup label="✨ KARABURUN KURUMLARI">
               <option>Karaburun İlçe Milli Eğitim Müdürlüğü</option>
               <option>Karaburun Anaokulu</option>
               <option>Mordoğan SNÜ Anaokulu</option>
@@ -166,7 +144,7 @@
               <option>Karaburun HEM</option>
               <option>Karaburun Öğr. Evi ve ASO</option>
             </optgroup>
-            <optgroup label="🏛️ GÜZELBAHÇE KURUMLARI">
+            <optgroup label="✨ GÜZELBAHÇE KURUMLARI">
               <option>Güzelbahçe İlçe Milli Eğitim Müdürlüğü</option>
               <option>Güzelbahçe Halk Eğitimi Merkezi</option>
               <option>Güzelbahçe Anaokulu</option>
@@ -188,14 +166,14 @@
               <option>Şehit Abdullah Tayyip Olçak Anadolu İmam Hatip Lisesi</option>
               <option>Yaşar Eğitim ve Kültür Vakfı Özel Eğitim İş Uygulama Merkezi</option>
             </optgroup>
-            <option value="LOCKED" style="color: #64748b; font-weight: bold;">🔒 DİĞER KURUMLAR (LİSANS GEREKLİ)</option>
+            <option value="LOCKED">🔒 Diğer Kurumlar (Kilitli)</option>
           </select>
         </div>
-        <div><label for="ad" class="required">Denetçi Ad Soyad</label><input id="ad" placeholder="İsim Giriniz..." /></div>
-        <div><label for="saat" class="required">Kontrol Saati</label><input id="saat" type="time" /></div>
-        <div><label for="tarih">Denetim Tarihi</label><input id="tarih" type="date" /></div>
+        <div><label for="ad" class="required">Ad Soyad</label><input id="ad" placeholder="..." /></div>
+        <div><label for="saat" class="required">Saat</label><input id="saat" type="time" /></div>
+        <div><label for="tarih">Tarih</label><input id="tarih" type="date" /></div>
         <div>
-          <label for="tur">Denetim Periyodu</label>
+          <label for="tur">Kontrol Turu</label>
           <select id="tur">
             <option>1. Tur (Sabah)</option>
             <option>2. Tur (Öğle)</option>
@@ -211,14 +189,14 @@
       <div class="btn-row">
         <button class="btn-primary" id="saveBtn">💾 Kaydet</button>
         <button class="btn-ghost" id="copyBtn">📋 Kopyala</button>
-        <button class="btn-ghost" id="csvBtn">📊 Excel/CSV</button>
+        <button class="btn-ghost" id="csvBtn">📊 Excel</button>
         <button class="btn-ghost" id="resetBtn" style="color:var(--bad);">🧹 Sıfırla</button>
       </div>
       <button class="btn-send" id="sendBtn">RAPORU PAYLAŞ / GÖNDER</button>
-      <p id="msg" style="font-size:0.75rem; color:var(--bad); text-align:center; margin-top:10px; font-weight:800; min-height:15px;"></p>
+      <p id="msg" style="font-size:0.7rem; color:var(--bad); text-align:center; margin-top:8px; font-weight:800; min-height:12px;"></p>
     </div>
 
-    <p class="footer-note">BAŞÖĞRETMEN MUZAFFER ÇINAR<br>B SINIFI İSG UZMANI & TSE TETKİK GÖREVLİSİ</p>
+    <p class="footer-note">BAŞÖĞRETMEN MUZAFFER ÇINAR<br>İSG UZMANI & TSE TETKİK GÖREVLİSİ</p>
   </div>
 
   <script>
@@ -247,36 +225,23 @@
         const el = document.getElementById("msg");
         el.textContent = t;
         el.style.color = isErr ? "var(--bad)" : "var(--primary)";
-        setTimeout(() => el.textContent = "", 4000); 
+        setTimeout(() => el.textContent = "", 3500); 
     }
 
-    document.getElementById("okul").onchange = function() {
-        if(this.value === "LOCKED") {
-            message("⛔ LİSANS AÇIK DEĞİL! Diğer kurumlar için yetkilendirme gereklidir.");
-            this.value = "";
-        }
-    };
-
     function validateForm() {
-        const rol = document.getElementById("rol").value;
-        const okul = document.getElementById("okul").value;
-        const ad = document.getElementById("ad").value.trim();
-        const saat = document.getElementById("saat").value;
-        if (!rol || !okul || !ad || !saat) {
-            message("⚠️ Lütfen yıldızlı (*) alanları eksiksiz doldurunuz!");
+        if (!document.getElementById("rol").value || !document.getElementById("okul").value || !document.getElementById("ad").value.trim() || !document.getElementById("saat").value) {
+            message("⚠️ Eksik alanları doldurun!");
             return false;
         }
         return true;
     }
 
     function updateCounterUI() {
-      const count = localStorage.getItem(counterKey) || 0;
-      document.getElementById("reportCount").textContent = count;
+      document.getElementById("reportCount").textContent = localStorage.getItem(counterKey) || 0;
     }
 
     function incrementCounter() {
-      let count = parseInt(localStorage.getItem(counterKey) || 0);
-      count++;
+      let count = parseInt(localStorage.getItem(counterKey) || 0) + 1;
       localStorage.setItem(counterKey, count);
       updateCounterUI();
       return count;
@@ -284,7 +249,7 @@
 
     function renderList() {
       const area = document.getElementById("list-area");
-      area.innerHTML = "<h2>Denetim Maddeleri</h2>";
+      area.innerHTML = "<h2>Kontrol Maddeleri</h2>"; // "Kontrol Maddeleri" yapıldı
       checklist.forEach(item => {
         const div = document.createElement("div");
         div.className = "item";
@@ -293,15 +258,13 @@
           <p class="item-title">${item.id} - ${item.text}</p>
           <div class="status">
             <input type="radio" name="st_${item.id}" id="ok_${item.id}" value="Uygun">
-            <label for="ok_${item.id}" class="ok">Uygun</label>
-            
+            <label for="ok_${item.id}">Uygun</label>
             <input type="radio" name="st_${item.id}" id="wr_${item.id}" value="Gözlem">
-            <label for="wr_${item.id}" class="warn">Gözlem</label>
-            
+            <label for="wr_${item.id}">Gözlem</label>
             <input type="radio" name="st_${item.id}" id="bd_${item.id}" value="Uygun Değil">
-            <label for="bd_${item.id}" class="bad">U. Değil</label>
+            <label for="bd_${item.id}">U. Değil</label>
           </div>
-          <textarea id="not_${item.id}" placeholder="Varsa tespitlerinizi buraya yazın..."></textarea>
+          <textarea id="not_${item.id}" placeholder="Not ekleyin..."></textarea>
         `;
         area.appendChild(div);
       });
@@ -320,57 +283,34 @@
     }
 
     function collect() {
-      const meta = {
-        okul: document.getElementById("okul").value,
-        tarih: document.getElementById("tarih").value,
-        tur: document.getElementById("tur").value,
-        rol: document.getElementById("rol").options[document.getElementById("rol").selectedIndex].text,
-        ad: document.getElementById("ad").value,
-        saat: document.getElementById("saat").value
+      return {
+        meta: {
+          okul: document.getElementById("okul").value,
+          tarih: document.getElementById("tarih").value,
+          tur: document.getElementById("tur").value,
+          rol: document.getElementById("rol").options[document.getElementById("rol").selectedIndex].text,
+          ad: document.getElementById("ad").value,
+          saat: document.getElementById("saat").value
+        },
+        rows: checklist.map(item => ({
+          id: item.id,
+          madde: item.text,
+          durum: document.querySelector(`input[name=st_${item.id}]:checked`)?.value || "İşaretlenmedi",
+          not: document.getElementById(`not_${item.id}`).value
+        }))
       };
-      const rows = checklist.map(item => ({
-        id: item.id,
-        madde: item.text,
-        durum: document.querySelector(`input[name=st_${item.id}]:checked`)?.value || "İşaretlenmedi",
-        not: document.getElementById(`not_${item.id}`).value
-      }));
-      return { meta, rows };
     }
 
-    function buildSummary(currentCount) {
+    function buildSummary(count) {
       const data = collect();
-      const total = data.rows.length;
-      const ok = data.rows.filter(x => x.durum === "Uygun").length;
-      const bad = data.rows.filter(x => x.durum === "Uygun Değil").length;
-      const warn = data.rows.filter(x => x.durum === "Gözlem").length;
-      const actions = data.rows.filter(x => x.durum === "Uygun Değil" || x.durum === "Gözlem");
-
-      let text = `📋 *GÜNLÜK GÜVENLİK KONTROL FORMU*\n`;
+      const actions = data.rows.filter(x => x.durum !== "Uygun" && x.durum !== "İşaretlenmedi");
+      let text = `📋 *GÜVENLİK FORMU (${count})*\n`;
+      text += `🏫 ${data.meta.okul}\n👤 ${data.meta.ad}\n🎭 ${data.meta.rol}\n📅 ${data.meta.tarih} | ${data.meta.saat}\n`;
       text += `--------------------------------\n`;
-      text += `🏫 *Kurum:* ${data.meta.okul}\n`;
-      text += `👤 *Denetçi:* ${data.meta.ad}\n`;
-      text += `🎭 *Rol:* ${data.meta.rol}\n`;
-      text += `🔄 *Tur:* ${data.meta.tur}\n`;
-      text += `📅 *Tarih:* ${data.meta.tarih} | *Saat:* ${data.meta.saat}\n`;
-      text += `--------------------------------\n`;
-      text += `✅ Uygun: ${ok}/${total} | ⚠️ Gözlem: ${warn} | ❌ U.Değil: ${bad}\n`;
-      text += `--------------------------------\n`;
-
       if (actions.length > 0) {
-        text += `🚀 *DİKKAT EDİLMESİ GEREKENLER:*\n`;
-        actions.forEach(item => {
-          text += `\n📍 *${item.id}:* ${item.madde}\n`;
-          text += `   - Durum: ${item.durum}\n`;
-          text += `   - Not: ${item.not || "Açıklama yok."}\n`;
-        });
-      } else {
-        text += `✨ Tüm kriterler denetim anında uygun bulunmuştur.`;
-      }
-      
-      const totalCount = currentCount || localStorage.getItem(counterKey) || 0;
-      text += `\n--------------------------------\n`;
-      text += `📊 [Toplam ${totalCount}. Rapor]`;
-      
+        text += `🚀 *TESPİTLER:*\n`;
+        actions.forEach(i => text += `\n📍 ${i.id}: ${i.durum}\n📝 ${i.not || "-"}`);
+      } else { text += `✨ Her şey uygun bulunmuştur.`; }
       return text;
     }
 
@@ -379,15 +319,10 @@
         const count = incrementCounter();
         const text = buildSummary(count);
         if (navigator.share) {
-            try {
-                await navigator.share({ title: "İSG Denetim Formu", text: text });
-                message("Rapor Paylaşıldı.", false);
-            } catch (err) {
-                if (err.name !== "AbortError") message("Paylaşım başarısız.");
-            }
+            try { await navigator.share({ text: text }); } catch (e) {}
         } else {
             navigator.clipboard.writeText(text);
-            message("Rapor Kopyalandı!", false);
+            message("Panoya kopyalandı!", false);
         }
     };
 
@@ -395,37 +330,24 @@
         if(!validateForm()) return;
         localStorage.setItem(key, JSON.stringify(collect())); 
         incrementCounter();
-        message("Veriler yerel hafızaya işlendi.", false); 
+        message("Kaydedildi.", false); 
     };
-    
+
     document.getElementById("copyBtn").onclick = () => { 
         if(!validateForm()) return;
         const count = incrementCounter();
-        const summary = buildSummary(count);
-        navigator.clipboard.writeText(summary).then(() => {
-            message("Metin panoya kopyalandı.", false);
-        });
+        navigator.clipboard.writeText(buildSummary(count));
+        message("Kopyalandı.", false);
     };
 
     document.getElementById("csvBtn").onclick = () => {
       if(!validateForm()) return;
       const data = collect();
-      const head = ["Tarih", "Tur", "Rol", "Ad Soyad", "Saat", "Kurum", "Madde", "Durum", "Not"];
-      const lines = [head.map(h => `"${h}"`).join(",")];
-      data.rows.forEach(r => {
-        lines.push([data.meta.tarih, data.meta.tur, data.meta.rol, data.meta.ad, data.meta.saat, data.meta.okul, r.id, r.durum, r.not].map(v => `"${v}"`).join(","));
-      });
-      const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
-      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `ISG_Rapor_${data.meta.tarih}.csv`; a.click();
-      incrementCounter();
+      const csv = "data:text/csv;charset=utf-8,\ufeff" + ["Tarih,Kurum,Madde,Durum,Not"].concat(data.rows.map(r => `${data.meta.tarih},${data.meta.okul},${r.id},${r.durum},${r.not}`)).join("\n");
+      const link = document.createElement("a"); link.href = encodeURI(csv); link.download = "ISG_Rapor.csv"; link.click();
     };
 
-    document.getElementById("resetBtn").onclick = function() {
-        if(confirm("Tüm formu sıfırlamak istiyor musunuz? Bu işlem geri alınamaz.")) {
-            localStorage.removeItem(key);
-            location.reload();
-        }
-    };
+    document.getElementById("resetBtn").onclick = () => confirm("Sıfırlansın mı?") && (localStorage.removeItem(key), location.reload());
 
     document.getElementById("logoInput").onchange = (e) => {
       const reader = new FileReader();
@@ -438,13 +360,7 @@
       reader.readAsDataURL(e.target.files[0]);
     };
 
-    document.getElementById("removeLogoBtn").onclick = () => { 
-        if(confirm("Logoyu kaldırmak istediğinizden emin misiniz?")) {
-            localStorage.removeItem(logoKey); 
-            location.reload(); 
-        }
-    };
-
+    document.getElementById("removeLogoBtn").onclick = () => confirm("Logo silinsin mi?") && (localStorage.removeItem(logoKey), location.reload());
     document.getElementById("rol").onchange = applyRolePermissions;
 
     window.onload = () => {
@@ -456,16 +372,6 @@
           document.getElementById("logoPreview").src = savedLogo; 
           document.getElementById("logoPreview").style.display="block"; 
           document.getElementById("logoPlaceholder").style.display="none"; 
-      }
-      const savedData = JSON.parse(localStorage.getItem(key));
-      if(savedData) {
-        document.getElementById("okul").value = savedData.meta.okul || "";
-        document.getElementById("ad").value = savedData.meta.ad || "";
-        document.getElementById("saat").value = savedData.meta.saat || "";
-        if(savedData.meta.rol.includes("İşveren")) document.getElementById("rol").value = "Isveren";
-        else if(savedData.meta.rol.includes("Çalışan")) document.getElementById("rol").value = "Calisan";
-        else if(savedData.meta.rol.includes("Nöbetçi")) document.getElementById("rol").value = "Nobetci";
-        applyRolePermissions();
       }
     };
   </script>
