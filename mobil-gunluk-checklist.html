@@ -212,7 +212,7 @@
       const warn = data.rows.filter(x => x.durum === "Gözlem").length;
       const actions = data.rows.filter(x => x.durum === "Uygun Değil" || x.durum === "Gözlem");
 
-      let text = `📋 *GÜNLÜK GÜVENLİK KONTROL RAPORU*\n`;
+      let text = `📋 *KURUM İÇİ GÜNLÜK GÜVENLİK KONTROL RAPORU*\n`;
       text += `--------------------------------\n`;
       text += `🏫 *Okul:* ${data.meta.okul || "-"}\n`;
       text += `👤 *Kontrol Eden:* ${data.meta.ad || "-"}\n`;
@@ -237,7 +237,7 @@
       // CIHAZ SAYAÇ NOTU EKLEME
       const totalCount = currentCount || localStorage.getItem(counterKey) || 0;
       text += `\n--------------------------------\n`;
-      text += `📊 *[Sistem Notu: Bu cihazdan gönderilen toplam ${totalCount}. rapordur]*`;
+      text += `📊 *[ Bu cihazdan gönderilen toplam ${totalCount}. rapordur]*`;
       
       return text;
     }
@@ -289,7 +289,7 @@
     };
 
     document.getElementById("resetBtn").onclick = function() {
-        if(confirm("Tüm formu sıfırlamak istiyor musunuz? (DİKKAT: TOPLAM SAYAÇ SIFIRLANMAZ)")) {
+        if(confirm("Tüm formu sıfırlamak istiyor musunuz? (DİKKAT: RAPOR SAYAÇ SIFIRLANMAZ)")) {
             localStorage.removeItem(key);
             document.getElementById("ad").value = "";
             document.getElementById("saat").value = "";
