@@ -20,7 +20,6 @@
       padding: 12px; margin-bottom: 10px; box-shadow: 0 4px 12px rgba(15, 76, 129, 0.05);
       position: relative;
     }
-    /* SAYAÇ ROZETİ */
     .counter-badge {
       position: absolute; top: -8px; right: 10px;
       background: #e11d48; color: #fff;
@@ -32,7 +31,6 @@
     h1 { font-size: 1.05rem; margin: 0 0 12px; color: var(--primary); line-height: 1.3; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; }
     h2 { font-size: 0.95rem; margin: 0 0 10px; color: #0f172a; font-weight: 700; }
     
-    /* LOGO VE ROL ALANI YAN YANA */
     .header-flex { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
     .logo-box { 
       width: 60px; height: 60px; min-width: 60px;
@@ -45,9 +43,9 @@
     
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     label { display: block; font-size: 0.8rem; color: #475569; margin-bottom: 3px; font-weight: 600; }
+    .required::after { content: " *"; color: red; }
     input, select, textarea, button { width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; min-height: 38px; font-size: 0.95rem; padding: 8px; background: #fff; }
-    textarea { min-height: 60px; }
-
+    
     .item { border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; margin-bottom: 8px; background: #fff; }
     .item.passive { background: #f1f5f9; opacity: 0.7; }
     .item-title { font-size: 0.9rem; font-weight: 600; margin: 0 0 8px; color: #1e293b; }
@@ -83,13 +81,14 @@
           <span id="logoPlaceholder">LOGO<br>YÜKLE</span>
         </div>
         <div style="flex:1;">
-          <label for="rol">Kontrol Eden Rol</label>
+          <label for="rol" class="required">Kontrol Eden Rol</label>
           <select id="rol">
+            <option value="">Seçiniz...</option>
             <option value="Isveren">İşveren/İşveren Vekili</option>
             <option value="Calisan">Çalışan</option>
             <option value="Nobetci">Nöbetçi Öğretmen</option>
           </select>
-          <div style="margin-top:5px; display:flex; gap:8px;">
+          <div style="margin-top:5px;">
              <span style="font-size:0.7rem; color:var(--primary); cursor:pointer; text-decoration:underline;" id="removeLogoBtn">Logoyu Sil</span>
           </div>
         </div>
@@ -100,7 +99,39 @@
     <div class="card">
       <h2>Genel Bilgiler</h2>
       <div class="grid">
-        <div><label for="okul">Kurum Adı</label><input id="okul" placeholder="Okul/Kurum Adı" /></div>
+        <div style="grid-column: 1 / -1;">
+          <label for="okul" class="required">Kurum Adı</label>
+          <select id="okul">
+            <option value="">Kurum Seçiniz...</option>
+            <optgroup label="KARABURUN">
+              <option>Karaburun İlçe Milli Eğitim Müdürlüğü</option>
+              <option>Karaburun Halk Eğitimi Merkezi</option>
+              <option>Karaburun Çok Programlı Anadolu Lisesi</option>
+              <option>Karaburun Ortaokulu</option>
+              <option>Atatürk İlkokulu</option>
+              <option>Mordoğan Fatma Şadiye Eren Çok Programlı Anadolu Lisesi</option>
+              <option>Mordoğan İlkokulu</option>
+              <option>Mordoğan Ortaokulu</option>
+            </optgroup>
+            <optgroup label="GÜZELBAHÇE">
+              <option>Güzelbahçe İlçe Milli Eğitim Müdürlüğü</option>
+              <option>Güzelbahçe Halk Eğitimi Merkezi</option>
+              <option>60. Yıl Anadolu Lisesi</option>
+              <option>Güzelbahçe Borsa İstanbul Mesleki ve Teknik Anadolu Lisesi</option>
+              <option>Cengiz Topel Lisesi</option>
+              <option>Ali Bayırlar İlkokulu</option>
+              <option>Ali Bayırlar Ortaokulu</option>
+              <option>Vali Kazım Paşa İlkokulu</option>
+              <option>Yaka Otizm Eğitim Merkezi</option>
+              <option>Dr. Güngör Özbek Ortaokulu</option>
+              <option>Mustafa Saadet Alanyalıoğlu İlkokulu</option>
+              <option>Payamlı İlkokulu / Ortaokulu</option>
+              <option>Yelki Hamdi Dalan İlkokulu / Ortaokulu</option>
+            </optgroup>
+          </select>
+        </div>
+        <div><label for="ad" class="required">Ad Soyad</label><input id="ad" placeholder="Kontrol Eden" /></div>
+        <div><label for="saat" class="required">Kontrol Saati</label><input id="saat" type="time" /></div>
         <div><label for="tarih">Tarih</label><input id="tarih" type="date" /></div>
         <div>
           <label for="tur">Kontrol Turu</label>
@@ -110,8 +141,6 @@
             <option>3. Tur (Akşam)</option>
           </select>
         </div>
-        <div><label for="ad">Ad Soyad</label><input id="ad" placeholder="Kontrol Eden" /></div>
-        <div style="grid-column: span 1;"><label for="saat">Saat</label><input id="saat" type="time" /></div>
       </div>
     </div>
 
@@ -125,7 +154,7 @@
         <button class="btn-ghost" id="resetBtn" style="color:#b91c1c;">Sıfırla</button>
       </div>
       <button class="btn-send" id="sendBtn">RAPORU PAYLAŞ / GÖNDER</button>
-      <p id="msg" style="font-size:0.8rem; color:var(--primary); text-align:center; margin-top:6px; font-weight:700; height:15px;"></p>
+      <p id="msg" style="font-size:0.8rem; color:#b91c1c; text-align:center; margin-top:6px; font-weight:700; height:15px;"></p>
     </div>
 
     <p class="footer-note">BAŞÖĞRETMEN MUZAFFER ÇINAR<br>İSG UZMANI & TSE TETKİK GÖREVLİSİ</p>
@@ -153,7 +182,26 @@
     const counterKey = "isg_report_counter";
 
     function todayIso() { const d = new Date(); return new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().slice(0, 10); }
-    function message(t) { document.getElementById("msg").textContent = t; setTimeout(() => document.getElementById("msg").textContent = "", 2500); }
+    function message(t, isErr = true) { 
+        const el = document.getElementById("msg");
+        el.textContent = t;
+        el.style.color = isErr ? "#b91c1c" : "#0f4c81";
+        setTimeout(() => el.textContent = "", 3000); 
+    }
+
+    // FORM VALİDASYONU (Zorunlu Alanlar)
+    function validateForm() {
+        const rol = document.getElementById("rol").value;
+        const okul = document.getElementById("okul").value;
+        const ad = document.getElementById("ad").value.trim();
+        const saat = document.getElementById("saat").value;
+
+        if (!rol || !okul || !ad || !saat) {
+            message("Lütfen zorunlu alanları (*) doldurunuz!");
+            return false;
+        }
+        return true;
+    }
 
     function updateCounterUI() {
       const count = localStorage.getItem(counterKey) || 0;
@@ -228,11 +276,11 @@
 
       let text = `📋 *GÜNLÜK GÜVENLİK KONTROL FORMU*\n`;
       text += `--------------------------------\n`;
-      text += `🏫 *Kurum:* ${data.meta.okul || "-"}\n`;
-      text += `👤 *Görevli:* ${data.meta.ad || "-"}\n`;
+      text += `🏫 *Kurum:* ${data.meta.okul}\n`;
+      text += `👤 *Görevli:* ${data.meta.ad}\n`;
       text += `🎭 *Rol:* ${data.meta.rol}\n`;
       text += `🔄 *Tur:* ${data.meta.tur}\n`;
-      text += `📅 *Tarih:* ${data.meta.tarih} | *Saat:* ${data.meta.saat || "-"}\n`;
+      text += `📅 *Tarih:* ${data.meta.tarih} | *Saat:* ${data.meta.saat}\n`;
       text += `--------------------------------\n`;
       text += `✅ Uygun: ${ok}/${total} | ⚠️ Gözlem: ${warn} | ❌ U.Değil: ${bad}\n`;
       text += `--------------------------------\n`;
@@ -250,45 +298,49 @@
       
       const totalCount = currentCount || localStorage.getItem(counterKey) || 0;
       text += `\n--------------------------------\n`;
-      text += `📊 [Sistem Notu: Bu cihazdan gönderilen toplam ${totalCount}. rapordur]`;
+      text += `📊 [Sistem Notu: Toplam ${totalCount}. rapordur]`;
       
       return text;
     }
 
     document.getElementById("sendBtn").onclick = async () => {
+        if(!validateForm()) return;
         const count = incrementCounter();
         const text = buildSummary(count);
         const data = collect();
-        const title = `${data.meta.okul} Kontrol Formu - ${data.meta.tarih}`;
+        const title = `${data.meta.okul} Kontrol Formu`;
 
         if (navigator.share) {
             try {
                 await navigator.share({ title: title, text: text });
-                message("Paylaşım menüsü açıldı.");
+                message("Paylaşım açıldı.", false);
             } catch (err) {
                 if (err.name !== "AbortError") message("Paylaşım hatası.");
             }
         } else {
             navigator.clipboard.writeText(text);
-            message("Paylaşım yok. Rapor kopyalandı!");
+            message("Kopyalandı!", false);
         }
     };
 
     document.getElementById("saveBtn").onclick = () => { 
+        if(!validateForm()) return;
         localStorage.setItem(key, JSON.stringify(collect())); 
         incrementCounter();
-        message("Cihaza Kaydedildi."); 
+        message("Cihaza Kaydedildi.", false); 
     };
     
     document.getElementById("copyBtn").onclick = () => { 
+        if(!validateForm()) return;
         const count = incrementCounter();
         const summary = buildSummary(count);
         navigator.clipboard.writeText(summary).then(() => {
-            message("Kopyalandı.");
+            message("Kopyalandı.", false);
         });
     };
 
     document.getElementById("csvBtn").onclick = () => {
+      if(!validateForm()) return;
       const data = collect();
       const head = ["Tarih", "Tur", "Rol", "Ad Soyad", "Saat", "Kurum", "Madde", "Durum", "Not"];
       const lines = [head.map(h => `"${h}"`).join(",")];
@@ -296,19 +348,21 @@
         lines.push([data.meta.tarih, data.meta.tur, data.meta.rol, data.meta.ad, data.meta.saat, data.meta.okul, r.id, r.durum, r.not].map(v => `"${v}"`).join(","));
       });
       const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
-      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `Kontrol_${data.meta.tarih}.csv`; a.click();
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `Kontrol_${data.meta.okul}_${data.meta.tarih}.csv`; a.click();
       incrementCounter();
     };
 
     document.getElementById("resetBtn").onclick = function() {
-        if(confirm("Tüm formu sıfırlamak istiyor musunuz? (SAYAÇ SIFIRLANMAZ)")) {
+        if(confirm("Tüm formu sıfırlamak istiyor musunuz?")) {
             localStorage.removeItem(key);
             document.getElementById("ad").value = "";
             document.getElementById("saat").value = "";
+            document.getElementById("okul").value = "";
+            document.getElementById("rol").value = "";
             document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
             document.querySelectorAll('textarea').forEach(txt => txt.value = "");
             document.getElementById("tarih").value = todayIso();
-            message("Form temizlendi.");
+            message("Temizlendi.", false);
             setTimeout(() => location.reload(), 500);
         }
     };
@@ -348,6 +402,9 @@
         document.getElementById("okul").value = savedData.meta.okul || "";
         document.getElementById("ad").value = savedData.meta.ad || "";
         document.getElementById("saat").value = savedData.meta.saat || "";
+        document.getElementById("rol").value = savedData.meta.rol === "Çalışan" ? "Calisan" : 
+                                               savedData.meta.rol === "Nöbetçi Öğretmen" ? "Nobetci" : "Isveren";
+        applyRolePermissions();
       }
     };
   </script>
