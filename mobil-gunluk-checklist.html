@@ -110,7 +110,7 @@
           <label for="okul" class="required">Resmi Kurum Seçimi</label>
           <select id="okul">
             <option value="">Lütfen listeden seçiniz...</option>
-            <optgroup label="? KARABURUN KURUMLARI">
+            <optgroup label="✨ KARABURUN KURUMLARI">
               <option>Karaburun İlçe Milli Eğitim Müdürlüğü</option>
               <option>Karaburun Anaokulu</option>
               <option>Mordoğan SNÜ Anaokulu</option>
@@ -124,7 +124,7 @@
               <option>Karaburun HEM</option>
               <option>Karaburun Öğr. Evi ve ASO</option>
             </optgroup>
-            <optgroup label="? GÜZELBAHÇE KURUMLARI">
+            <optgroup label="✨ GÜZELBAHÇE KURUMLARI">
               <option>Güzelbahçe İlçe Milli Eğitim Müdürlüğü</option>
               <option>Güzelbahçe Halk Eğitimi Merkezi</option>
               <option>Güzelbahçe Anaokulu</option>
@@ -146,7 +146,7 @@
               <option>Şehit Abdullah Tayyip Olçak Anadolu İmam Hatip Lisesi</option>
               <option>Yaşar Eğitim ve Kültür Vakfı Özel Eğitim İş Uygulama Merkezi</option>
             </optgroup>
-            <option value="LOCKED" style="color: #64748b; font-weight: bold;">?? DİĞER KURUMLAR (KİLİTLİ)</option>
+            <option value="LOCKED" style="color: #64748b; font-weight: bold;">🔒 DİĞER KURUMLAR (KİLİTLİ)</option>
           </select>
         </div>
         <div><label for="ad" class="required">Ad Soyad</label><input id="ad" placeholder="Adınızı yazınız..." /></div>
@@ -210,7 +210,7 @@
 
     document.getElementById("okul").onchange = function() {
         if(this.value === "LOCKED") {
-            message("? LİSANS AÇIK DEĞİL! Diğer kurumlar için yetkilendirme gereklidir.");
+            message("⛔ LİSANS AÇIK DEĞİL! Diğer kurumlar için yetkilendirme gereklidir.");
             this.value = "";
         }
     };
@@ -221,7 +221,7 @@
         const ad = document.getElementById("ad").value.trim();
         const saat = document.getElementById("saat").value;
         if (!rol || !okul || !ad || !saat) {
-            message("?? Lütfen zorunlu alanları (*) doldurunuz!");
+            message("⚠️ Lütfen zorunlu alanları (*) doldurunuz!");
             return false;
         }
         return true;
@@ -298,31 +298,31 @@
       const warn = data.rows.filter(x => x.durum === "Gözlem").length;
       const actions = data.rows.filter(x => x.durum === "Uygun Değil" || x.durum === "Gözlem");
 
-      let text = `?? *GÜNLÜK GÜVENLİK KONTROL FORMU*\n`;
+      let text = `📋 *GÜNLÜK GÜVENLİK KONTROL FORMU*\n`;
       text += `--------------------------------\n`;
-      text += `?? *Kurum:* ${data.meta.okul}\n`;
-      text += `?? *Görevli:* ${data.meta.ad}\n`;
-      text += `?? *Rol:* ${data.meta.rol}\n`;
-      text += `?? *Tur:* ${data.meta.tur}\n`;
-      text += `?? *Tarih:* ${data.meta.tarih} | *Saat:* ${data.meta.saat}\n`;
+      text += `🏫 *Kurum:* ${data.meta.okul}\n`;
+      text += `👤 *Görevli:* ${data.meta.ad}\n`;
+      text += `🎭 *Rol:* ${data.meta.rol}\n`;
+      text += `🔄 *Tur:* ${data.meta.tur}\n`;
+      text += `📅 *Tarih:* ${data.meta.tarih} | *Saat:* ${data.meta.saat}\n`;
       text += `--------------------------------\n`;
-      text += `? Uygun: ${ok}/${total} | ?? Gözlem: ${warn} | ? U.Değil: ${bad}\n`;
+      text += `✅ Uygun: ${ok}/${total} | ⚠️ Gözlem: ${warn} | ❌ U.Değil: ${bad}\n`;
       text += `--------------------------------\n`;
 
       if (actions.length > 0) {
-        text += `?? *AKSİYON GEREKTİRENLER:*\n`;
+        text += `🚀 *AKSİYON GEREKTİRENLER:*\n`;
         actions.forEach(item => {
-          text += `\n?? *${item.id}:* ${item.madde}\n`;
+          text += `\n📍 *${item.id}:* ${item.madde}\n`;
           text += `   - Durum: ${item.durum}\n`;
           text += `   - Not: ${item.not || "Açıklama yok."}\n`;
         });
       } else {
-        text += `? Tüm kontroller uygun görülmüştür.`;
+        text += `✨ Tüm kontroller uygun görülmüştür.`;
       }
       
       const totalCount = currentCount || localStorage.getItem(counterKey) || 0;
       text += `\n--------------------------------\n`;
-      text += `?? [Sistem Notu: Toplam ${totalCount}. rapordur]`;
+      text += `📊 [Sistem Notu: Toplam ${totalCount}. rapordur]`;
       
       return text;
     }
