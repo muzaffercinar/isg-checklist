@@ -29,7 +29,6 @@
     .item { border: 1px dashed #c7d2e5; border-radius: 12px; padding: 10px; margin-bottom: 10px; background: #fbfdff; }
     .item.passive { background: #f1f5f9; border-style: solid; opacity: 0.85; }
     .item-title { font-size: 0.94rem; font-weight: 600; margin: 0 0 8px; }
-    .passive-tag { display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; color: #7c2d12; background: #ffedd5; border: 1px solid #fed7aa; }
     .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 8px; }
     .status label { margin: 0; font-weight: 500; font-size: 0.82rem; text-align: center; border: 1px solid #cbd5e1; border-radius: 9px; padding: 7px 4px; background: #fff; cursor: pointer;}
     .status input { display: none; }
@@ -110,7 +109,7 @@
       <p id="msg" style="font-size:0.85rem; color:var(--primary); text-align:center; margin-top:8px; font-weight:600;"></p>
     </div>
 
-    <p class="footer-note">İŞ GÜVENLİĞİ UZMANI MUZAFFER ÇINAR - 2026 V2</p>
+    <p class="footer-note">BAŞÖĞRETMEN MUZAFFER ÇINAR - İSG UZMANI & TSE TETKİK GÖREVLİSİ</p>
   </div>
 
   <script>
@@ -126,7 +125,8 @@
       { id: "B6", text: "Öğrenci teslimatı yetkili kişilere yapıldı" },
       { id: "C1", text: "Islak zemin uyarı levhaları görünür şekilde yerleştirildi" },
       { id: "C2", text: "Okul bahçesinde tehlikeli yabancı nesne kontrolü yapıldı" },
-      { id: "C3", text: "Tuvalet ve ortak alan hijyen-güvenlik kontrolü tamam" }
+      { id: "C3", text: "Tuvalet ve ortak alan hijyen-güvenlik kontrolü tamam" },
+      { id: "C4", text: "Okul bahçesi araç girişine kapatıldı / fiziksel engel kontrol edildi" }
     ];
 
     const key = "isg_mobil_data_2026";
@@ -164,14 +164,6 @@
         const box = document.getElementById(`item_${item.id}`);
         box.classList.toggle("passive", isPassive);
         box.querySelectorAll("input, textarea").forEach(el => el.disabled = isPassive);
-        const title = box.querySelector(".item-title");
-        const existingTag = box.querySelector(".passive-tag");
-        if (existingTag) existingTag.remove();
-        if (isPassive) {
-          const tag = document.createElement("span");
-          tag.className = "passive-tag"; tag.textContent = "Yetki Dışı";
-          title.appendChild(tag);
-        }
       });
     }
 
@@ -237,7 +229,6 @@
       const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a"); a.href = url; a.download = `ISG_Denetim_${data.meta.tarih}.csv`; a.click();
-      message("Excel/CSV indirildi.");
     };
 
     document.getElementById("saveBtn").onclick = () => { localStorage.setItem(key, JSON.stringify(collect())); message("Cihaza Kaydedildi."); };
@@ -251,7 +242,6 @@
     };
     document.getElementById("closeShare").onclick = () => document.getElementById("shareSheet").style.display = "none";
     document.getElementById("rol").onchange = applyRolePermissions;
-    document.getElementById("resetBtn").onclick = () => { if(confirm("Tüm formu sıfırlamak istiyor musunuz?")) { localStorage.removeItem(key); location.reload(); }};
 
     document.getElementById("logoInput").onchange = (e) => {
       const reader = new FileReader();
