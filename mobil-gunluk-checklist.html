@@ -11,7 +11,7 @@
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
-      margin: 0; font-family: "Segoe UI", Arial, sans-serif; color: var(--text);
+      margin: 0; font-family: "Inter", "Segoe UI", Helvetica, Arial, sans-serif; color: var(--text);
       background: linear-gradient(180deg, #eef3fb 0%, #f7f9fd 100%);
     }
     .wrap { max-width: 860px; margin: 0 auto; padding: 10px; }
@@ -28,43 +28,50 @@
       box-shadow: 0 4px 8px rgba(225, 29, 72, 0.3);
       z-index: 5;
     }
-    h1 { font-size: 1.05rem; margin: 0 0 12px; color: var(--primary); line-height: 1.3; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; }
-    h2 { font-size: 0.95rem; margin: 0 0 10px; color: #0f172a; font-weight: 700; }
+    h1 { font-size: 1.05rem; margin: 0 0 12px; color: var(--primary); line-height: 1.3; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; padding-bottom: 8px; font-weight: 800; }
+    h2 { font-size: 0.95rem; margin: 0 0 10px; color: #0f172a; font-weight: 700; border-left: 3px solid var(--primary); padding-left: 8px; }
     
     .header-flex { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
     .logo-box { 
       width: 60px; height: 60px; min-width: 60px;
-      border-radius: 8px; border: 1px dashed #cbd5e1; 
+      border-radius: 10px; border: 1px dashed #cbd5e1; 
       background: #f8fbff; display: flex; align-items: center; justify-content: center; 
       overflow: hidden; cursor: pointer;
     }
     .logo-box img { width: 100%; height: 100%; object-fit: contain; }
-    .logo-box span { font-size: 0.55rem; color: #64748b; text-align: center; }
+    .logo-box span { font-size: 0.55rem; color: #64748b; text-align: center; font-weight: 700; }
     
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-    label { display: block; font-size: 0.8rem; color: #475569; margin-bottom: 3px; font-weight: 600; }
-    .required::after { content: " *"; color: red; }
-    input, select, textarea, button { width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; min-height: 38px; font-size: 0.95rem; padding: 8px; background: #fff; }
+    label { display: block; font-size: 0.8rem; color: #475569; margin-bottom: 3px; font-weight: 700; }
+    .required::after { content: " *"; color: #ef4444; }
     
-    .item { border: 1px solid #e2e8f0; border-radius: 10px; padding: 10px; margin-bottom: 8px; background: #fff; }
-    .item.passive { background: #f1f5f9; opacity: 0.7; }
-    .item-title { font-size: 0.9rem; font-weight: 600; margin: 0 0 8px; color: #1e293b; }
+    select, input, textarea { 
+      width: 100%; border: 1px solid #cbd5e1; border-radius: 8px; min-height: 40px; 
+      font-size: 0.95rem; padding: 8px 12px; background: #fff; color: #1e293b;
+    }
+    select:focus, input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.1); }
     
-    .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 5px; margin-bottom: 8px; }
-    .status label { margin: 0; font-size: 0.75rem; text-align: center; border: 1px solid #e2e8f0; border-radius: 6px; padding: 6px 2px; background: #f8fafc; cursor: pointer; color: #64748b;}
+    select optgroup { font-style: normal; font-weight: 800; color: var(--primary); background: #f1f5f9; }
+    
+    .item { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; margin-bottom: 8px; background: #fff; }
+    .item.passive { background: #f8fafc; opacity: 0.6; pointer-events: none; }
+    .item-title { font-size: 0.9rem; font-weight: 700; margin: 0 0 10px; color: #1e293b; }
+    
+    .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 8px; }
+    .status label { margin: 0; font-size: 0.75rem; text-align: center; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 2px; background: #f8fafc; cursor: pointer; color: #64748b; font-weight: 700;}
     .status input { display: none; }
-    .status input:checked + span { display: inline-block; width: 100%; color: #fff; border-radius: 4px; padding: 4px 2px; font-weight: 700; }
+    .status input:checked + span { display: inline-block; width: 100%; color: #fff; border-radius: 4px; padding: 4px 2px; font-weight: 800; }
     .ok input:checked + span { background: var(--ok); }
     .warn input:checked + span { background: var(--warn); }
     .bad input:checked + span { background: var(--bad); }
 
-    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-    .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 600; cursor: pointer; }
-    .btn-ghost { background: #fff; color: #0f4c81; border: 1px solid #cbd5e1; font-weight: 600; cursor: pointer; font-size: 0.85rem; }
-    .btn-send { background: #ea580c; color: #fff; border: 0; font-weight: 700; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.2); cursor: pointer; margin-top: 8px; }
+    .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 700; cursor: pointer; border-radius: 8px; }
+    .btn-ghost { background: #fff; color: var(--primary); border: 1px solid #cbd5e1; font-weight: 700; cursor: pointer; font-size: 0.85rem; border-radius: 8px; }
+    .btn-send { background: #ea580c; color: #fff; border: 0; font-weight: 800; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.3); cursor: pointer; margin-top: 10px; border-radius: 8px; font-size: 1rem; }
     
-    .sticky { position: sticky; bottom: 8px; z-index: 10; padding: 10px; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); }
-    .footer-note { margin: 15px 0; font-size: 0.75rem; color: #64748b; text-align: center; font-weight: 700; letter-spacing: 0.5px; }
+    .sticky { position: sticky; bottom: 8px; z-index: 10; padding: 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-top: 2px solid var(--primary); }
+    .footer-note { margin: 20px 0; font-size: 0.75rem; color: #64748b; text-align: center; font-weight: 800; line-height: 1.5; text-transform: uppercase; }
 
     @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
   </style>
@@ -84,12 +91,12 @@
           <label for="rol" class="required">Kontrol Eden Rol</label>
           <select id="rol">
             <option value="">Seçiniz...</option>
-            <option value="Isveren">İşveren/İşveren Vekili</option>
+            <option value="Isveren">İşveren / İşveren Vekili</option>
             <option value="Calisan">Çalışan</option>
             <option value="Nobetci">Nöbetçi Öğretmen</option>
           </select>
-          <div style="margin-top:5px;">
-             <span style="font-size:0.7rem; color:var(--primary); cursor:pointer; text-decoration:underline;" id="removeLogoBtn">Logoyu Sil</span>
+          <div style="margin-top:6px;">
+             <span style="font-size:0.65rem; color:var(--primary); cursor:pointer; text-decoration:underline; font-weight:800;" id="removeLogoBtn">Logoyu Kaldır</span>
           </div>
         </div>
       </div>
@@ -100,37 +107,46 @@
       <h2>Genel Bilgiler</h2>
       <div class="grid">
         <div style="grid-column: 1 / -1;">
-          <label for="okul" class="required">Kurum Adı</label>
+          <label for="okul" class="required">Resmi Kurum Seçimi</label>
           <select id="okul">
-            <option value="">Kurum Seçiniz...</option>
-            <optgroup label="KARABURUN">
-              <option>Karaburun İlçe Milli Eğitim Müdürlüğü</option>
-              <option>Karaburun Halk Eğitimi Merkezi</option>
-              <option>Karaburun Çok Programlı Anadolu Lisesi</option>
-              <option>Karaburun Ortaokulu</option>
+            <option value="">Lütfen listeden seçiniz...</option>
+            <optgroup label="✨ KARABURUN KURUMLARI">
+              <option>Karaburun Anaokulu</option>
+              <option>Mordoğan SNÜ Anaokulu</option>
+              <option>Karaburun İlkokulu</option>
               <option>Atatürk İlkokulu</option>
-              <option>Mordoğan Fatma Şadiye Eren Çok Programlı Anadolu Lisesi</option>
-              <option>Mordoğan İlkokulu</option>
-              <option>Mordoğan Ortaokulu</option>
+              <option>Karaburun Ortaokulu</option>
+              <option>Atatürk Ortaokulu</option>
+              <option>Karaburun Çok Programlı Anadolu Lisesi</option>
+              <option>Mordoğan Fatma Emin Karaağaç Çok Programlı Anadolu Lisesi</option>
+              <option>Karaburun İmam Hatip Lisesi</option>
+              <option>Karaburun HEM</option>
+              <option>Karaburun Öğr. Evi ve ASO</option>
             </optgroup>
-            <optgroup label="GÜZELBAHÇE">
-              <option>Güzelbahçe İlçe Milli Eğitim Müdürlüğü</option>
+            <optgroup label="✨ GÜZELBAHÇE KURUMLARI">
               <option>Güzelbahçe Halk Eğitimi Merkezi</option>
-              <option>60. Yıl Anadolu Lisesi</option>
-              <option>Güzelbahçe Borsa İstanbul Mesleki ve Teknik Anadolu Lisesi</option>
-              <option>Cengiz Topel Lisesi</option>
-              <option>Ali Bayırlar İlkokulu</option>
-              <option>Ali Bayırlar Ortaokulu</option>
+              <option>Güzelbahçe Anaokulu</option>
               <option>Vali Kazım Paşa İlkokulu</option>
-              <option>Yaka Otizm Eğitim Merkezi</option>
+              <option>Yelki Hamdi Dalan İlkokulu</option>
+              <option>Hakkı Oğuz Tabaoğlu İlkokulu</option>
+              <option>Ali Bayırlar İlkokulu</option>
+              <option>Mustafa-Saadet Alanyalıoğlu İlkokulu</option>
+              <option>Vali Kazım Paşa Ortaokulu</option>
+              <option>Namık Elal Ortaokulu</option>
               <option>Dr. Güngör Özbek Ortaokulu</option>
-              <option>Mustafa Saadet Alanyalıoğlu İlkokulu</option>
-              <option>Payamlı İlkokulu / Ortaokulu</option>
-              <option>Yelki Hamdi Dalan İlkokulu / Ortaokulu</option>
+              <option>Ali Bayırlar Ortaokulu</option>
+              <option>Mustafa-Saadet Alanyalıoğlu Ortaokulu</option>
+              <option>60. Yıl Anadolu Lisesi</option>
+              <option>Cengiz Topel Anadolu Lisesi</option>
+              <option>Borsa İstanbul Mesleki ve Teknik Anadolu Lisesi</option>
+              <option>Dr. Güngör Özbek Anadolu Lisesi</option>
+              <option>Şehit Abdullah Tayyip Olçak Anadolu İmam Hatip Lisesi</option>
+              <option>Yaşar Eğitim ve Kültür Vakfı Özel Eğitim İş Uygulama Merkezi</option>
             </optgroup>
+            <option value="LOCKED" style="color: #64748b; font-weight: bold;">🔒 DİĞER KURUMLAR (KİLİTLİ)</option>
           </select>
         </div>
-        <div><label for="ad" class="required">Ad Soyad</label><input id="ad" placeholder="Kontrol Eden" /></div>
+        <div><label for="ad" class="required">Ad Soyad</label><input id="ad" placeholder="Adınızı yazınız..." /></div>
         <div><label for="saat" class="required">Kontrol Saati</label><input id="saat" type="time" /></div>
         <div><label for="tarih">Tarih</label><input id="tarih" type="date" /></div>
         <div>
@@ -151,10 +167,10 @@
         <button class="btn-primary" id="saveBtn">Kaydet</button>
         <button class="btn-ghost" id="copyBtn">Kopyala</button>
         <button class="btn-ghost" id="csvBtn">Excel/CSV</button>
-        <button class="btn-ghost" id="resetBtn" style="color:#b91c1c;">Sıfırla</button>
+        <button class="btn-ghost" id="resetBtn" style="color:#b91c1c;">Formu Sıfırla</button>
       </div>
       <button class="btn-send" id="sendBtn">RAPORU PAYLAŞ / GÖNDER</button>
-      <p id="msg" style="font-size:0.8rem; color:#b91c1c; text-align:center; margin-top:6px; font-weight:700; height:15px;"></p>
+      <p id="msg" style="font-size:0.8rem; color:#b91c1c; text-align:center; margin-top:8px; font-weight:800; height:15px;"></p>
     </div>
 
     <p class="footer-note">BAŞÖĞRETMEN MUZAFFER ÇINAR<br>İSG UZMANI & TSE TETKİK GÖREVLİSİ</p>
@@ -185,11 +201,18 @@
     function message(t, isErr = true) { 
         const el = document.getElementById("msg");
         el.textContent = t;
-        el.style.color = isErr ? "#b91c1c" : "#0f4c81";
-        setTimeout(() => el.textContent = "", 3000); 
+        el.style.color = isErr ? "#ef4444" : "#0f4c81";
+        setTimeout(() => el.textContent = "", 4000); 
     }
 
-    // FORM VALİDASYONU (Zorunlu Alanlar)
+    // Lisans Kontrolü ve Zorunlu Alanlar
+    document.getElementById("okul").onchange = function() {
+        if(this.value === "LOCKED") {
+            message("⛔ LİSANS AÇIK DEĞİL! Diğer kurumlar için yetkilendirme gereklidir.");
+            this.value = ""; // Seçimi sıfırla
+        }
+    };
+
     function validateForm() {
         const rol = document.getElementById("rol").value;
         const okul = document.getElementById("okul").value;
@@ -197,7 +220,7 @@
         const saat = document.getElementById("saat").value;
 
         if (!rol || !okul || !ad || !saat) {
-            message("Lütfen zorunlu alanları (*) doldurunuz!");
+            message("⚠️ Lütfen zorunlu alanları (*) doldurunuz!");
             return false;
         }
         return true;
@@ -230,7 +253,7 @@
             <label class="warn"><input type="radio" name="st_${item.id}" value="Gözlem"><span>Gözlem</span></label>
             <label class="bad"><input type="radio" name="st_${item.id}" value="Uygun Değil"><span>U. Değil</span></label>
           </div>
-          <textarea id="not_${item.id}" placeholder="Not ekle..."></textarea>
+          <textarea id="not_${item.id}" placeholder="Önemli notlarınızı buraya ekleyebilirsiniz..."></textarea>
         `;
         area.appendChild(div);
       });
@@ -308,14 +331,12 @@
         const count = incrementCounter();
         const text = buildSummary(count);
         const data = collect();
-        const title = `${data.meta.okul} Kontrol Formu`;
-
         if (navigator.share) {
             try {
-                await navigator.share({ title: title, text: text });
-                message("Paylaşım açıldı.", false);
+                await navigator.share({ title: "İSG Formu", text: text });
+                message("Paylaşım menüsü açıldı.", false);
             } catch (err) {
-                if (err.name !== "AbortError") message("Paylaşım hatası.");
+                if (err.name !== "AbortError") message("Paylaşım yapılamadı.");
             }
         } else {
             navigator.clipboard.writeText(text);
@@ -327,7 +348,7 @@
         if(!validateForm()) return;
         localStorage.setItem(key, JSON.stringify(collect())); 
         incrementCounter();
-        message("Cihaza Kaydedildi.", false); 
+        message("Cihaz hafızasına kaydedildi.", false); 
     };
     
     document.getElementById("copyBtn").onclick = () => { 
@@ -335,7 +356,7 @@
         const count = incrementCounter();
         const summary = buildSummary(count);
         navigator.clipboard.writeText(summary).then(() => {
-            message("Kopyalandı.", false);
+            message("Rapor kopyalandı.", false);
         });
     };
 
@@ -348,7 +369,7 @@
         lines.push([data.meta.tarih, data.meta.tur, data.meta.rol, data.meta.ad, data.meta.saat, data.meta.okul, r.id, r.durum, r.not].map(v => `"${v}"`).join(","));
       });
       const blob = new Blob(["\ufeff" + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
-      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `Kontrol_${data.meta.okul}_${data.meta.tarih}.csv`; a.click();
+      const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = `ISG_Rapor_${data.meta.tarih}.csv`; a.click();
       incrementCounter();
     };
 
@@ -362,7 +383,7 @@
             document.querySelectorAll('input[type="radio"]').forEach(radio => radio.checked = false);
             document.querySelectorAll('textarea').forEach(txt => txt.value = "");
             document.getElementById("tarih").value = todayIso();
-            message("Temizlendi.", false);
+            message("Form temizlendi.", false);
             setTimeout(() => location.reload(), 500);
         }
     };
@@ -379,7 +400,7 @@
     };
 
     document.getElementById("removeLogoBtn").onclick = () => { 
-        if(confirm("Logoyu silmek istiyor musunuz?")) {
+        if(confirm("Logoyu tamamen kaldırmak istiyor musunuz?")) {
             localStorage.removeItem(logoKey); 
             location.reload(); 
         }
@@ -402,8 +423,9 @@
         document.getElementById("okul").value = savedData.meta.okul || "";
         document.getElementById("ad").value = savedData.meta.ad || "";
         document.getElementById("saat").value = savedData.meta.saat || "";
-        document.getElementById("rol").value = savedData.meta.rol === "Çalışan" ? "Calisan" : 
-                                               savedData.meta.rol === "Nöbetçi Öğretmen" ? "Nobetci" : "Isveren";
+        if(savedData.meta.rol === "İşveren / İşveren Vekili") document.getElementById("rol").value = "Isveren";
+        else if(savedData.meta.rol === "Çalışan") document.getElementById("rol").value = "Calisan";
+        else if(savedData.meta.rol === "Nöbetçi Öğretmen") document.getElementById("rol").value = "Nobetci";
         applyRolePermissions();
       }
     };
