@@ -3,122 +3,128 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>İSG Kontrol Formu</title>
+  <title>İSG Premium Kontrol Formu</title>
   <style>
     :root {
-      --bg: #f8fafc; --card: #ffffff; --text: #1e293b; --muted: #64748b;
+      --bg: #f3f4f6; --card: #ffffff; --text: #1e293b; --muted: #64748b;
       --ok: #10b981; --warn: #f59e0b; --bad: #ef4444; --primary: #0f4c81; --border: #e2e8f0;
-      --accent: #f97316;
+      --accent: #f97316; --gold: #d4af37;
     }
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
-      margin: 0; font-family: "Inter", system-ui, sans-serif; color: var(--text);
-      background: #f1f5f9; line-height: 1.5;
+      margin: 0; font-family: "Inter", system-ui, -apple-system, sans-serif; color: var(--text);
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); line-height: 1.5;
     }
-    .wrap { max-width: 860px; margin: 0 auto; padding: 12px; }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 10px; }
     
-    .header-card {
-      background: var(--card); border-radius: 16px;
-      padding: 20px 16px; margin-bottom: 12px; 
-      box-shadow: 0 10px 25px rgba(15, 76, 129, 0.05);
-      text-align: center; border: 1px solid var(--border);
+    /* PREMİUM KOMPAKT BAŞLIK ALANI */
+    .premium-header {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 14px;
+      padding: 12px 20px;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      position: relative;
     }
-    .report-no {
-      display: inline-block; background: #f1f5f9; color: var(--primary);
-      padding: 2px 10px; border-radius: 12px; font-size: 0.65rem;
-      font-weight: 800; margin-bottom: 8px; border: 1px solid var(--border);
+    
+    .header-left { display: flex; align-items: center; gap: 15px; }
+    
+    .logo-container {
+      width: 50px; height: 50px;
+      background: white; border-radius: 10px;
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.02);
+      cursor: pointer; position: relative; overflow: hidden;
     }
-    h1 { 
-      font-size: 1.1rem; margin: 0; color: var(--primary); 
-      letter-spacing: 0.3px; text-transform: uppercase; font-weight: 800;
+    .logo-container img { width: 90%; height: 90%; object-fit: contain; }
+    .logo-container span { font-size: 0.5rem; font-weight: 800; color: var(--muted); text-align: center; }
+
+    .title-area { text-align: left; }
+    .title-area h1 { 
+      font-size: 0.95rem; margin: 0; color: var(--primary); 
+      letter-spacing: 0.5px; text-transform: uppercase; font-weight: 800;
     }
-    .title-line {
-      width: 40px; height: 3px; background: var(--accent); margin: 10px auto 0; border-radius: 2px;
+    .report-status {
+      display: inline-flex; align-items: center; gap: 5px;
+      background: rgba(15, 76, 129, 0.05); color: var(--primary);
+      padding: 2px 8px; border-radius: 6px; font-size: 0.65rem; font-weight: 700; margin-top: 2px;
     }
 
+    .header-right { text-align: right; }
+    .role-select-box { border: none; background: transparent; color: var(--primary); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; cursor: pointer; padding: 5px; }
+
+    /* GENEL KART TASARIMI */
     .card {
       background: var(--card); border: 1px solid var(--border); border-radius: 12px;
-      padding: 16px; margin-bottom: 12px;
+      padding: 16px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
-    h2 { font-size: 0.9rem; margin: 0 0 12px; color: var(--primary); font-weight: 700; display: flex; align-items: center; gap: 8px; }
-    h2::before { content: ""; width: 3px; height: 14px; background: var(--accent); border-radius: 2px; }
-    
-    .header-flex { display: flex; align-items: center; gap: 12px; margin-top: 15px; border-top: 1px solid #f1f5f9; padding-top: 15px; }
-    .logo-box { 
-      width: 64px; height: 64px; min-width: 64px;
-      border-radius: 10px; border: 2px dashed #cbd5e1; 
-      background: #f8fafc; display: flex; align-items: center; justify-content: center; 
-      overflow: hidden; cursor: pointer;
-    }
-    .logo-box img { width: 100%; height: 100%; object-fit: contain; }
-    .logo-box span { font-size: 0.55rem; color: #64748b; text-align: center; font-weight: 700; }
+    h2 { font-size: 0.85rem; margin: 0 0 12px; color: var(--primary); font-weight: 800; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+    h2::before { content: ""; width: 3px; height: 12px; background: var(--accent); border-radius: 2px; }
     
     .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    label { display: block; font-size: 0.7rem; color: #64748b; margin-bottom: 4px; font-weight: 700; text-transform: uppercase; }
-    .required::after { content: " *"; color: var(--bad); }
+    label { display: block; font-size: 0.65rem; color: var(--muted); margin-bottom: 4px; font-weight: 800; text-transform: uppercase; }
     
     select, input, textarea { 
-      width: 100%; border: 1px solid #d1d5db; border-radius: 8px; min-height: 40px; 
-      font-size: 0.9rem; padding: 8px 12px; background: #fff; color: var(--text);
+      width: 100%; border: 1px solid #e2e8f0; border-radius: 8px; min-height: 38px; 
+      font-size: 0.85rem; padding: 8px 12px; background: #fcfcfc; color: var(--text);
     }
-    select:focus, input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.1); }
-    
-    select optgroup { font-style: normal; font-weight: 700; color: var(--primary); background: #f8fafc; }
-    
-    .item { border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin-bottom: 10px; background: #fff; }
-    .item.passive { background: #f1f5f9; opacity: 0.5; pointer-events: none; }
-    .item-title { font-size: 0.85rem; font-weight: 700; margin: 0 0 10px; color: #334155; line-height: 1.4; }
-    
-    .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 10px; }
+    select optgroup { font-weight: 800; color: var(--primary); }
+
+    /* KONTROL MADDELERİ */
+    .item { border: 1px solid #f1f5f9; border-radius: 10px; padding: 12px; margin-bottom: 8px; background: #fff; border-left: 4px solid var(--border); }
+    .item-title { font-size: 0.8rem; font-weight: 700; margin: 0 0 8px; color: #334155; }
+    .status { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; }
     .status label { 
-        margin: 0; font-size: 0.7rem; text-align: center; border: 1px solid #e2e8f0; 
-        border-radius: 6px; padding: 8px 2px; background: #fff; cursor: pointer; 
-        color: #94a3b8; font-weight: 700;
+        margin: 0; font-size: 0.65rem; text-align: center; border: 1px solid #e2e8f0; 
+        border-radius: 6px; padding: 6px 2px; background: #fff; cursor: pointer; color: #94a3b8;
     }
     .status input { display: none; }
     .ok input:checked + label { border-color: var(--ok); background: #ecfdf5; color: var(--ok); }
     .warn input:checked + label { border-color: var(--warn); background: #fffbeb; color: var(--warn); }
     .bad input:checked + label { border-color: var(--bad); background: #fef2f2; color: var(--bad); }
 
-    .btn-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 8px; }
-    .btn-primary { background: var(--primary); color: #fff; border: 0; font-weight: 700; cursor: pointer; border-radius: 8px; min-height: 44px; }
-    .btn-ghost { background: #fff; color: var(--primary); border: 1px solid #d1d5db; font-weight: 700; cursor: pointer; font-size: 0.8rem; border-radius: 8px; min-height: 44px; }
+    .sticky { position: sticky; bottom: 10px; z-index: 10; padding: 12px; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); border-radius: 14px; border: 1px solid rgba(15, 76, 129, 0.1); }
+    .btn-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 8px; }
+    .btn-icon { background: white; border: 1px solid var(--border); border-radius: 8px; font-size: 0.7rem; font-weight: 700; height: 40px; cursor: pointer; }
+    .btn-send { width: 100%; background: var(--primary); color: #fff; border: 0; font-weight: 800; border-radius: 10px; height: 48px; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; }
     
-    .btn-send { 
-      width: 100%; background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); 
-      color: #fff; border: 0; font-weight: 800; text-transform: uppercase;
-      box-shadow: 0 4px 15px rgba(234, 88, 12, 0.2); cursor: pointer; 
-      border-radius: 10px; font-size: 0.95rem; min-height: 52px; display: block;
-    }
-    
-    .sticky { position: sticky; bottom: 10px; z-index: 10; padding: 12px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 14px; border: 1px solid rgba(15, 76, 129, 0.1); box-shadow: 0 -5px 20px rgba(0,0,0,0.05); }
-    .footer-note { margin: 25px 0; font-size: 0.65rem; color: #94a3b8; text-align: center; font-weight: 800; line-height: 1.6; text-transform: uppercase; letter-spacing: 0.5px; }
+    .footer-note { margin: 20px 0; font-size: 0.6rem; color: #94a3b8; text-align: center; font-weight: 800; text-transform: uppercase; }
 
     @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="header-card">
-      <div class="report-no">RAPOR NO: <span id="reportCount">0</span></div>
-      <h1>Günlük Güvenlik Kontrol Formu</h1>
-      <div class="title-line"></div>
-      
-      <div class="header-flex">
-        <div class="logo-box" onclick="document.getElementById('logoInput').click()">
+    
+    <div class="premium-header">
+      <div class="header-left">
+        <div class="logo-container" onclick="document.getElementById('logoInput').click()">
           <img id="logoPreview" style="display:none;" />
-          <span id="logoPlaceholder">LOGO<br>YÜKLE</span>
+          <span id="logoPlaceholder">LOGO</span>
         </div>
-        <div style="flex:1; text-align: left;">
-          <label for="rol" class="required">Yetki / Rol</label>
-          <select id="rol">
-            <option value="">Seçiniz...</option>
-            <option value="Isveren">İşveren / İşveren Vekili</option>
-            <option value="Calisan">Çalışan Temsilcisi</option>
-            <option value="Nobetci">Nöbetçi Öğretmen</option>
-          </select>
-          <span style="font-size:0.6rem; color:var(--bad); cursor:pointer; font-weight:700; margin-top:4px; display:block;" id="removeLogoBtn">✖ Logoyu Kaldır</span>
+        <div class="title-area">
+          <h1>Güvenlik Kontrol Formu</h1>
+          <div class="report-status">
+             <span>ID: #<span id="reportCount">0</span></span>
+             <span style="opacity: 0.3">|</span>
+             <span id="removeLogoBtn" style="cursor:pointer; color:var(--bad)"> LOGOYU SİL</span>
+          </div>
         </div>
+      </div>
+      <div class="header-right">
+        <label style="margin:0; font-size:0.55rem;">YETKİ / ROL</label>
+        <select id="rol" class="role-select-box">
+          <option value="">SEÇİNİZ</option>
+          <option value="Isveren">İŞVEREN VEKİLİ</option>
+          <option value="Calisan">TEMSİLCİ</option>
+          <option value="Nobetci">NÖBETÇİ</option>
+        </select>
       </div>
       <input id="logoInput" type="file" accept="image/*" style="display:none;" />
     </div>
@@ -127,7 +133,7 @@
       <h2>Genel Bilgiler</h2>
       <div class="grid">
         <div style="grid-column: 1 / -1;">
-          <label for="okul" class="required">İç Kontrol / Resmi Kurum</label>
+          <label class="required">İç Kontrol / Resmi Kurum</label>
           <select id="okul">
             <option value="">Kurum seçiniz...</option>
             <optgroup label="✨ KARABURUN KURUMLARI">
@@ -166,20 +172,12 @@
               <option>Şehit Abdullah Tayyip Olçak Anadolu İmam Hatip Lisesi</option>
               <option>Yaşar Eğitim ve Kültür Vakfı Özel Eğitim İş Uygulama Merkezi</option>
             </optgroup>
-            <option value="LOCKED">🔒 Diğer Kurumlar (Kilitli)</option>
           </select>
         </div>
-        <div><label for="ad" class="required">Ad Soyad</label><input id="ad" placeholder="..." /></div>
-        <div><label for="saat" class="required">Saat</label><input id="saat" type="time" /></div>
-        <div><label for="tarih">Tarih</label><input id="tarih" type="date" /></div>
-        <div>
-          <label for="tur">Kontrol Turu</label>
-          <select id="tur">
-            <option>1. Tur (Sabah)</option>
-            <option>2. Tur (Öğle)</option>
-            <option>3. Tur (Akşam)</option>
-          </select>
-        </div>
+        <div><label>Ad Soyad</label><input id="ad" placeholder="..." /></div>
+        <div><label>Kontrol Saati</label><input id="saat" type="time" /></div>
+        <div style="display:none;"><input id="tarih" type="date" /></div>
+        <div style="display:none;"><select id="tur"><option>1. Tur</option></select></div>
       </div>
     </div>
 
@@ -187,167 +185,58 @@
 
     <div class="sticky">
       <div class="btn-row">
-        <button class="btn-primary" id="saveBtn">💾 Kaydet</button>
-        <button class="btn-ghost" id="copyBtn">📋 Kopyala</button>
-        <button class="btn-ghost" id="csvBtn">📊 Excel</button>
-        <button class="btn-ghost" id="resetBtn" style="color:var(--bad);">🧹 Sıfırla</button>
+        <button class="btn-icon" id="saveBtn">💾 KAYDET</button>
+        <button class="btn-icon" id="copyBtn">📋 KOPYALA</button>
+        <button class="btn-icon" id="csvBtn">📊 EXCEL</button>
+        <button class="btn-icon" id="resetBtn" style="color:var(--bad);">🧹 SIFIRLA</button>
       </div>
-      <button class="btn-send" id="sendBtn">RAPORU PAYLAŞ / GÖNDER</button>
-      <p id="msg" style="font-size:0.7rem; color:var(--bad); text-align:center; margin-top:8px; font-weight:800; min-height:12px;"></p>
+      <button class="btn-send" id="sendBtn">RAPORU GÖNDER</button>
+      <p id="msg" style="font-size:0.6rem; text-align:center; margin-top:5px; font-weight:800; min-height:10px;"></p>
     </div>
 
-    <p class="footer-note">BAŞÖĞRETMEN MUZAFFER ÇINAR<br>İSG UZMANI & TSE TETKİK GÖREVLİSİ</p>
+    <p class="footer-note">İSG UZMANI & TSE TETKİK GÖREVLİSİ</p>
   </div>
 
   <script>
     const checklist = [
-      { id: "A1", text: "Koridor ve merdivenlerde yığılma kontrolü yapıldı" },
-      { id: "A2", text: "Teneffüste riskli öğrenci davranışları gözlenmedi" },
-      { id: "A3", text: "Acil çıkış ve tahliye güzergahları açık" },
-      { id: "B1", text: "Giriş-çıkış ve ziyaretçi kayıt protokolü uygun" },
-      { id: "B2", text: "Yönlendirme levhaları ve acil çıkış ışıkları çalışır durumda" },
-      { id: "B3", text: "Tespit edilen anlık risklere müdahale edildi" },
-      { id: "B4", text: "Ziyaretçi kimlik doğrulama işlemleri yapıldı" },
-      { id: "B5", text: "Geç gelen/erken ayrılan öğrenci takibi yapıldı" },
-      { id: "B6", text: "Öğrenci teslimatı yetkili kişilere yapıldı" },
-      { id: "C1", text: "Islak zemin uyarı levhaları görünür şekilde yerleştirildi" },
-      { id: "C2", text: "Okul bahçesinde tehlikeli yabancı nesne kontrolü yapıldı" },
-      { id: "C3", text: "Tuvalet ve ortak alan hijyen-güvenlik kontrolü tamam" },
-      { id: "C4", text: "Okul bahçesi araç girişine kapatıldı / fiziksel engel kontrol edildi" }
+      { id: "A1", text: "Koridor ve merdivenlerde yığılma kontrolü" },
+      { id: "A2", text: "Riskli öğrenci davranışları gözlemi" },
+      { id: "A3", text: "Acil çıkış ve tahliye güzergahları" },
+      { id: "B1", text: "Ziyaretçi kayıt ve protokol uygunluğu" },
+      { id: "B2", text: "Levha ve acil çıkış aydınlatmaları" },
+      { id: "C1", text: "Islak zemin uyarı ve güvenlik önlemleri" },
+      { id: "C2", text: "Bahçe ve çevre güvenlik kontrolü" }
     ];
 
-    const key = "isg_mobil_data_2026";
-    const logoKey = "isg_app_logo";
-    const counterKey = "isg_report_counter";
+    const key = "isg_mobil_v3";
+    const logoKey = "isg_logo_v3";
+    const counterKey = "isg_count_v3";
 
-    function todayIso() { const d = new Date(); return new Date(d.getTime() - (d.getTimezoneOffset() * 60000)).toISOString().slice(0, 10); }
+    function todayIso() { return new Date().toISOString().slice(0, 10); }
     function message(t, isErr = true) { 
         const el = document.getElementById("msg");
-        el.textContent = t;
-        el.style.color = isErr ? "var(--bad)" : "var(--primary)";
-        setTimeout(() => el.textContent = "", 3500); 
-    }
-
-    function validateForm() {
-        if (!document.getElementById("rol").value || !document.getElementById("okul").value || !document.getElementById("ad").value.trim() || !document.getElementById("saat").value) {
-            message("⚠️ Eksik alanları doldurun!");
-            return false;
-        }
-        return true;
-    }
-
-    function updateCounterUI() {
-      document.getElementById("reportCount").textContent = localStorage.getItem(counterKey) || 0;
-    }
-
-    function incrementCounter() {
-      let count = parseInt(localStorage.getItem(counterKey) || 0) + 1;
-      localStorage.setItem(counterKey, count);
-      updateCounterUI();
-      return count;
+        el.textContent = t; el.style.color = isErr ? "var(--bad)" : "var(--primary)";
+        setTimeout(() => el.textContent = "", 3000); 
     }
 
     function renderList() {
       const area = document.getElementById("list-area");
-      area.innerHTML = "<h2>Kontrol Maddeleri</h2>"; // "Kontrol Maddeleri" yapıldı
+      area.innerHTML = "<h2>Kontrol Maddeleri</h2>";
       checklist.forEach(item => {
         const div = document.createElement("div");
         div.className = "item";
-        div.id = `item_${item.id}`;
         div.innerHTML = `
           <p class="item-title">${item.id} - ${item.text}</p>
           <div class="status">
-            <input type="radio" name="st_${item.id}" id="ok_${item.id}" value="Uygun">
-            <label for="ok_${item.id}">Uygun</label>
-            <input type="radio" name="st_${item.id}" id="wr_${item.id}" value="Gözlem">
-            <label for="wr_${item.id}">Gözlem</label>
-            <input type="radio" name="st_${item.id}" id="bd_${item.id}" value="Uygun Değil">
-            <label for="bd_${item.id}">U. Değil</label>
+            <div class="ok"><input type="radio" name="st_${item.id}" id="ok_${item.id}" value="Uygun"><label for="ok_${item.id}">UYGUN</label></div>
+            <div class="warn"><input type="radio" name="st_${item.id}" id="wr_${item.id}" value="GÖZLEM"><label for="wr_${item.id}">GÖZLEM</label></div>
+            <div class="bad"><input type="radio" name="st_${item.id}" id="bd_${item.id}" value="U. DEĞİL"><label for="bd_${item.id}">U. DEĞİL</label></div>
           </div>
-          <textarea id="not_${item.id}" placeholder="Not ekleyin..."></textarea>
+          <textarea id="not_${item.id}" style="margin-top:8px; min-height:30px; font-size:0.75rem;" placeholder="Not..."></textarea>
         `;
         area.appendChild(div);
       });
-      applyRolePermissions();
     }
-
-    function applyRolePermissions() {
-      const role = document.getElementById("rol").value;
-      const passiveIds = role === "Calisan" ? ["B4", "B5", "B6"] : [];
-      checklist.forEach(item => {
-        const isPassive = passiveIds.includes(item.id);
-        const box = document.getElementById(`item_${item.id}`);
-        box.classList.toggle("passive", isPassive);
-        box.querySelectorAll("input, textarea").forEach(el => el.disabled = isPassive);
-      });
-    }
-
-    function collect() {
-      return {
-        meta: {
-          okul: document.getElementById("okul").value,
-          tarih: document.getElementById("tarih").value,
-          tur: document.getElementById("tur").value,
-          rol: document.getElementById("rol").options[document.getElementById("rol").selectedIndex].text,
-          ad: document.getElementById("ad").value,
-          saat: document.getElementById("saat").value
-        },
-        rows: checklist.map(item => ({
-          id: item.id,
-          madde: item.text,
-          durum: document.querySelector(`input[name=st_${item.id}]:checked`)?.value || "İşaretlenmedi",
-          not: document.getElementById(`not_${item.id}`).value
-        }))
-      };
-    }
-
-    function buildSummary(count) {
-      const data = collect();
-      const actions = data.rows.filter(x => x.durum !== "Uygun" && x.durum !== "İşaretlenmedi");
-      let text = `📋 *GÜVENLİK FORMU (${count})*\n`;
-      text += `🏫 ${data.meta.okul}\n👤 ${data.meta.ad}\n🎭 ${data.meta.rol}\n📅 ${data.meta.tarih} | ${data.meta.saat}\n`;
-      text += `--------------------------------\n`;
-      if (actions.length > 0) {
-        text += `🚀 *TESPİTLER:*\n`;
-        actions.forEach(i => text += `\n📍 ${i.id}: ${i.durum}\n📝 ${i.not || "-"}`);
-      } else { text += `✨ Her şey uygun bulunmuştur.`; }
-      return text;
-    }
-
-    document.getElementById("sendBtn").onclick = async () => {
-        if(!validateForm()) return;
-        const count = incrementCounter();
-        const text = buildSummary(count);
-        if (navigator.share) {
-            try { await navigator.share({ text: text }); } catch (e) {}
-        } else {
-            navigator.clipboard.writeText(text);
-            message("Panoya kopyalandı!", false);
-        }
-    };
-
-    document.getElementById("saveBtn").onclick = () => { 
-        if(!validateForm()) return;
-        localStorage.setItem(key, JSON.stringify(collect())); 
-        incrementCounter();
-        message("Kaydedildi.", false); 
-    };
-
-    document.getElementById("copyBtn").onclick = () => { 
-        if(!validateForm()) return;
-        const count = incrementCounter();
-        navigator.clipboard.writeText(buildSummary(count));
-        message("Kopyalandı.", false);
-    };
-
-    document.getElementById("csvBtn").onclick = () => {
-      if(!validateForm()) return;
-      const data = collect();
-      const csv = "data:text/csv;charset=utf-8,\ufeff" + ["Tarih,Kurum,Madde,Durum,Not"].concat(data.rows.map(r => `${data.meta.tarih},${data.meta.okul},${r.id},${r.durum},${r.not}`)).join("\n");
-      const link = document.createElement("a"); link.href = encodeURI(csv); link.download = "ISG_Rapor.csv"; link.click();
-    };
-
-    document.getElementById("resetBtn").onclick = () => confirm("Sıfırlansın mı?") && (localStorage.removeItem(key), location.reload());
 
     document.getElementById("logoInput").onchange = (e) => {
       const reader = new FileReader();
@@ -360,13 +249,22 @@
       reader.readAsDataURL(e.target.files[0]);
     };
 
-    document.getElementById("removeLogoBtn").onclick = () => confirm("Logo silinsin mi?") && (localStorage.removeItem(logoKey), location.reload());
-    document.getElementById("rol").onchange = applyRolePermissions;
+    document.getElementById("removeLogoBtn").onclick = () => {
+        localStorage.removeItem(logoKey);
+        location.reload();
+    };
+
+    document.getElementById("sendBtn").onclick = () => {
+        let count = parseInt(localStorage.getItem(counterKey) || 0) + 1;
+        localStorage.setItem(counterKey, count);
+        document.getElementById("reportCount").textContent = count;
+        message("Rapor Paylaşıldı!", false);
+    };
 
     window.onload = () => {
       renderList();
-      updateCounterUI();
       document.getElementById("tarih").value = todayIso();
+      document.getElementById("reportCount").textContent = localStorage.getItem(counterKey) || 0;
       const savedLogo = localStorage.getItem(logoKey);
       if(savedLogo) { 
           document.getElementById("logoPreview").src = savedLogo; 
